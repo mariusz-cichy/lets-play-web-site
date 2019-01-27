@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.emcea</groupId>
-	<artifactId>emcea-web-party</artifactId>
+	<artifactId>lets-play-web-site</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>emcea-web-party</name>
-	<description>EMCEA&#39;s Web Party</description>
+	<name>lets-play-web-site</name>
+	<description>Let's Play Web Site</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -22,6 +22,16 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
