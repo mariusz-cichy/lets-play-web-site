@@ -33,14 +33,14 @@ public class WebPartyController {
     }
 
 
-    @RequestMapping("/login")
-    public String loginPage() {
-        return "loginPage";
-    }
-
-    @RequestMapping("/register")
-    public String registerPage() {
-        return "registerPage";
-    }
+//    @RequestMapping("/login")
+//    public String loginPage() {
+//        return "loginPage";
+//    }
+//
+//    @RequestMapping("/register")
+//    public String registerPage() {
+//        return "registerPage";
+//    }
 
 }
