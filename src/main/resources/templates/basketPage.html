@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,10 +14,10 @@
 <body>
 <div class="container">
 
-    <div th:replace="~{fragments/menu}"></div>
+    <div th:replace="~{fragments/header}"></div>
     <div class="py-3 text-center"></div>
 
-    <h1>Form</h1>
+    <h4>Form</h4>
     <form action="#" th:action="@{/basket}" th:object="${greeting}" method="post">
         <p>Id: <input type="text" th:field="*{id}" /></p>
         <p>Message: <input type="text" th:field="*{content}" /></p>
@@ -25,7 +25,7 @@
     </form>
 
 
-    <h1>Result</h1>
+    <h4>Result</h4>
     <p th:text="${greeting.id}">Id</p>
     <p th:text="${greeting.content}">Message</p>
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,7 +14,7 @@
 <body>
 <div class="container">
 
-    <div th:replace="~{fragments/menu}"></div>
+    <div th:replace="~{fragments/header}"></div>
 
     <div class="py-3 text-center"></div>
     <div class="row">
@@ -29,7 +29,7 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="d-block w-100"
-                             src="https://www.gog4ce.com/wp-content/uploads/2018/06/GettyImages-508471249-cel-800x400.jpg"
+                             src="/img/urodziny-800x400.jpg"
                              alt="First slide">
                         <div class="carousel-caption d-none d-md-block">
                             <h5><b>Urodziny</b></h5>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="carousel-item">
                         <img class="d-block w-100"
-                             src="https://manateequeen.com/wp-content/uploads/2018/05/corporate-event-catamaran-cruise-jupiter-florida-800x400.jpg"
+                             src="/img/impreza-firmowa-800x400.jpg"
                              alt="Second slide">
                         <div class="carousel-caption d-none d-md-block">
                             <h5><b>Imprezy firmowe</b></h5>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="carousel-item">
                         <img class="d-block w-100"
-                             src="http://www.donegaldaily.com/wp-content/uploads/2018/10/4EBD3707-9CD5-42DD-B065-B0A3445E7C3E-1968-0000023EB228B16C-800x400.jpg"
+                             src="/img/choinka-800x400.jpg"
                              alt="Third slide">
                         <div class="carousel-caption d-none d-md-block">
                             <h5><b>Choinka</b></h5>
@@ -72,70 +72,7 @@
                 </a>
             </div>
 
-            <div class="py-3 text-center"></div>
 
-            <h4 class="mb-3">Załóż konto</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="firstName">Imię</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Wpisz imię" value=""
-                               required>
-                        <div class="invalid-feedback">
-                            Proszę podać poprawne imię.
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="lastName">Nazwisko</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Wpisz nazwisko" value=""
-                               required>
-                        <div class="invalid-feedback">
-                            Proszę podać poprawne nazwisko.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="imie.nazwisko@przyklad.pl"
-                           required>
-                    <div class="invalid-feedback">
-                        Proszę podać poprawny adres email.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password">Hasło</label>
-                    <input type="password" class="form-control" id="password" placeholder="Wpisz hasło" required>
-                    <div class="invalid-feedback">
-                        Proszę wpisać ponownie to samo hasło.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="repeatedPassword">Powtórzenie hasła</label>
-                    <input type="password" class="form-control" id="repeatedPassword"
-                           placeholder="Wpisz ponownie hasło" required>
-                    <div class="invalid-feedback">
-                        Proszę wpisać ponownie to samo hasło.
-                    </div>
-                </div>
-
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="same-address" required>
-                    <label class="custom-control-label" for="same-address">Zgadzam się i akceptuję warunki
-                        <a href="" data-toggle="modal"
-                           data-target="#exampleModal">Regulaminu</a></label>
-                    <div class="invalid-feedback">
-                        Proszę zaakceptować warunki.
-                    </div>
-                </div>
-
-                <hr class="mb-4">
-
-                <button class="btn btn-primary btn-lg btn-block" type="submit">ZAREJESTRUJ SIĘ</button>
-            </form>
         </div>
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -145,83 +82,52 @@
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
+                        <h6 class="my-0">Pierwszy produkt</h6>
+                        <small class="text-muted">Krótki opis</small>
                     </div>
-                    <span class="text-muted">$12</span>
+                    <span class="text-muted">12,00 PLN</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
+                        <h6 class="my-0">Drugi produkt</h6>
+                        <small class="text-muted">Krótki opis</small>
                     </div>
-                    <span class="text-muted">$8</span>
+                    <span class="text-muted">8,00 PLN</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
+                        <h6 class="my-0">Trzeci produkt</h6>
+                        <small class="text-muted">Krótki opis</small>
                     </div>
-                    <span class="text-muted">$5</span>
+                    <span class="text-muted">5,00 PLN</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
-                        <h6 class="my-0">Promo code</h6>
-                        <small>EXAMPLECODE</small>
+                        <h6 class="my-0">Kod promocyjny</h6>
+                        <small>PRZYKLADOWYKOD</small>
                     </div>
-                    <span class="text-success">-$5</span>
+                    <span class="text-success">-5,00 PLN</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
+                    <span>Razem</span>
+                    <strong>20,00 PLN</strong>
                 </li>
             </ul>
 
             <form class="card p-2">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
+                    <input type="text" class="form-control" placeholder="Kod promocyjny">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary">Redeem</button>
+                        <button type="submit" class="btn btn-secondary">Dodaj</button>
                     </div>
                 </div>
             </form>
-
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Twój koszyk</span>
-                <span class="badge badge-secondary badge-pill">3</span>
-            </h4>
         </div>
     </div>
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid beatae consectetur corporis eligendi
-                ex, excepturi fuga fugit iste maiores mollitia nam natus nesciunt nisi odit quae reiciendis repellat
-                repudiandae sequi sit temporibus vero voluptatem? Accusamus asperiores dicta, doloremque et ex excepturi
-                expedita in ipsam libero maiores molestiae natus numquam pariatur placeat porro, possimus praesentium
-                quidem quis quod reiciendis repellendus repudiandae saepe sunt velit voluptate! Ad animi asperiores
-                debitis dolores enim eveniet exercitationem ipsum laborum maxime quasi, quidem quod reiciendis sapiente?
-                Commodi cumque dignissimos distinctio doloribus facere illo labore libero molestias neque, officia
-                quibusdam, rerum saepe, tempora ullam voluptate voluptates.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div th:replace="~{fragments/footer}"></div>
 
