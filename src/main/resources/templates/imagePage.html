@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/lets-party-style.css">
+
+    <title>Let's Party!</title>
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="~{fragments/header}"></div>
+
+    <div class="py-3 text-center"></div>
+
+    <div class="row">
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">O firmie</h4>
+            <hr class="mb-4">
+
+
+            <div class="col-md-6">
+                <img src="../../static/images/guacamole400x400WithX.jpg"
+                     th:src="@{'/product/5/productimage'}"
+                     width="200" height="200">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+
+<script src="/webjars/jquery/jquery.slim.min.js"></script>
+<script src="/webjars/popper.js/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/lets-party-style.css">
+
+    <title>Let's Party!</title>
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="~{fragments/header}"></div>
+
+    <div class="py-3 text-center"></div>
+
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="pannel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Upload a new recipe image</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <form action="http:\\localhost" method="post" enctype="multipart/form-data"
+                                      th:action="@{'/product/1/image'}">
+                                    <!--th:action="@{'/product/' + ${recipe.getId()} + '/image'}">-->
+                                    <label class="control-label">Select File</label>
+                                    <input id="imagefile" name="imagefile" type="file" class="file">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+
+<script src="/webjars/jquery/jquery.slim.min.js"></script>
+<script src="/webjars/popper.js/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
