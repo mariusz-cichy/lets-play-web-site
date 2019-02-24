@@ -16,11 +16,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(Long l) {
-        Optional<Product> productOptional = productRepository.findById(5L);
+    public Product findById(Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
 
         if (!productOptional.isPresent()) {
-            throw new RuntimeException("Recipe Not Found!");
+            Product product = new Product(id,"To be added", null);
+            productRepository.save(product);
+            return product;
         }
 
         return productOptional.get();

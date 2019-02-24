@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <form action="http:\\localhost" method="post" enctype="multipart/form-data"
-                                    th:action="@{'/product/' + ${product.getId()} + '/image'}">
+                                      th:action="@{'/product/' + ${product.getId()} + '/image'}">
                                     <h4 th:text="${product.getId()}"></h4>
                                     <label class="control-label">Select File</label>
                                     <input id="imagefile" name="imagefile" type="file" class="file">

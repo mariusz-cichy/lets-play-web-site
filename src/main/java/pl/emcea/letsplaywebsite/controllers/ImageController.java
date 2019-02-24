@@ -53,7 +53,8 @@ public class ImageController {
 
     @GetMapping("/product/{id}/image")
     public String showUploadForm(@PathVariable String id, Model model){
-//        model.addAttribute("product", productService.findCommandById(Long.valueOf(id)));
+        System.out.println("1: id="+id);
+        model.addAttribute("product", productService.findById(Long.valueOf(id)));
 
         return "/product/imageUploadFormPage";
     }
@@ -62,7 +63,7 @@ public class ImageController {
     public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
 
         imageService.saveImageFile(Long.valueOf(id), file);
-        System.out.println("--->>>");
-        return "redirect:/product/1/image";
+        System.out.println("2: id="+id);
+        return "redirect:/product/"+id+"/image";
     }
 }

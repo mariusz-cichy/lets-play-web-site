@@ -5,10 +5,10 @@ import javax.persistence.*;
 @Entity(name="products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
+
     @Lob
     private Byte[] image;
 
@@ -16,6 +16,12 @@ public class Product {
     }
 
     public Product(String name, Byte[] image) {
+        this.name = name;
+        this.image = image;
+    }
+
+    public Product(Long id, String name, Byte[] image) {
+        this.id = id;
         this.name = name;
         this.image = image;
     }

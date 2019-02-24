@@ -121,7 +121,7 @@
                 <version>0.20.0</version>
 
                 <configuration>
-                    <dockerHost>tcp://192.168.99.100:2376</dockerHost>
+                    <dockerHost>tcp://localhost:2375</dockerHost>
                     <verbose>true</verbose>
                     <images>
                         <image>
