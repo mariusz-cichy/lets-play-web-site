@@ -1,16 +1,20 @@
 package pl.emcea.letsplaywebsite.models;
 
+import javax.persistence.*;
+
+@Entity
 public class Greeting {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String content;
 
-    public long getId() {
-        return id;
+    public Greeting() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Greeting(String content) {
+        this.content = content;
     }
 
     public String getContent() {

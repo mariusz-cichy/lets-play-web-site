@@ -17,31 +17,37 @@
 
     <div class="py-3 text-center"></div>
 
-
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="pannel-group">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h1 class="panel-title">Upload a new recipe image</h1>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <form action="http:\\localhost" method="post" enctype="multipart/form-data"
-                                      th:action="@{'/product/' + ${product.getId()} + '/image'}">
-                                    <h4 th:text="${product.getId()}"></h4>
-                                    <label class="control-label">Select File</label>
-                                    <input id="imagefile" name="imagefile" type="file" class="file">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row" th:each="product : ${products}">
+        <div class="col-1"><span th:text="${product.id}"> Id </span></div>
+        <div class="col-6"><span th:text="${product.name}"> Name </span></div>
+        <div class="col-1"><img src="../../static/images/guacamole400x400WithX.jpg"
+                                th:src="@{'/product/'+${product.id}+'/productimage'}"
+                                width="200" height="200"></div>
     </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th> id</th>
+            <th> name</th>
+            <th> image</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${products.empty}">
+            <td colspan="2"> No Books Available</td>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td><span th:text="${product.id}"> Id </span></td>
+            <td><span th:text="${product.name}"> Name </span></td>
+            <td><img src="../../static/images/guacamole400x400WithX.jpg"
+                     th:src="@{'/product/'+${product.id}+'/productimage'}"
+                     width="200" height="200"></td>
+        </tr>
+        </tbody>
+    </table>
+
+
 
 </div>
 

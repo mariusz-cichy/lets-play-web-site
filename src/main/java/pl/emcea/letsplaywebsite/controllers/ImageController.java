@@ -59,6 +59,14 @@ public class ImageController {
         return "/product/imageUploadFormPage";
     }
 
+
+    @GetMapping("/product/all")
+    public String showAllProducts(Model model){
+        model.addAttribute("products", productService.findAll());
+
+        return "/product/showAllProducts";
+    }
+
     @PostMapping("product/{id}/image")
     public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
 
