@@ -34,9 +34,6 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${products.empty}">
-            <td colspan="2"> No Books Available</td>
-        </tr>
         <tr th:each="product : ${products}">
             <td><span th:text="${product.id}"> Id </span></td>
             <td><span th:text="${product.name}"> Name </span></td>

@@ -15,9 +15,20 @@ public class PoolAnswer {
     @JoinColumn(name="pool_id", nullable=false)
     private Pool pool;
 
+    public PoolAnswer() {
+    }
+
     public PoolAnswer(String answer, Integer votes) {
         this.answer = answer;
         this.votes = votes;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getPercent() {
+        return this.votes*100/pool.getTotalVotes();
     }
 
     public String getAnswer() {

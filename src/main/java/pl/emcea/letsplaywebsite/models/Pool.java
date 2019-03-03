@@ -11,16 +11,37 @@ public class Pool {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String question;
-    private LocalDateTime start_date;
-    private LocalDateTime end_date;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-    @OneToMany(mappedBy = "pool", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pool", cascade = CascadeType.ALL)
+    @OrderBy("votes desc")
     private Set<PoolAnswer> answers = new HashSet<>();
 
-    public Pool(String question, LocalDateTime start_date, LocalDateTime end_date) {
+    public Pool() {
+    }
+
+    public Pool(String question, LocalDateTime startDate, LocalDateTime endDate, Set<PoolAnswer> answers) {
         this.question = question;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.answers = answers;
+    }
+
+    public Integer getTotalVotes() {
+        int totalVotes = 0;
+        for (PoolAnswer answer: answers) {
+            totalVotes += answer.getVotes();
+        }
+        return totalVotes;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getQuestion() {
@@ -31,19 +52,27 @@ public class Pool {
         this.question = question;
     }
 
-    public LocalDateTime getStart_date() {
-        return start_date;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(LocalDateTime start_date) {
-        this.start_date = start_date;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDateTime getEnd_date() {
-        return end_date;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(LocalDateTime end_date) {
-        this.end_date = end_date;
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public Set<PoolAnswer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Set<PoolAnswer> answers) {
+        this.answers = answers;
     }
 }

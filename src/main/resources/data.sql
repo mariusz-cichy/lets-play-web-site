@@ -71,7 +71,7 @@ VALUES (4, "Ślub", 10);
 INSERT INTO pool_answers(pool_id, answer, votes)
 VALUES (4, "Spotkanie z przyjaciółmi", 4);
 INSERT INTO pool_answers(pool_id, answer, votes)
-VALUES (4, "Zwłykły dzień", 0);
+VALUES (4, "Zwykły dzień", 0);
 
 INSERT INTO pool_answers(pool_id, answer, votes)
 VALUES (5, "Boże narodzenie", 33);

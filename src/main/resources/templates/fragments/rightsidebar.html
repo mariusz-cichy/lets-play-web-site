@@ -1,0 +1,84 @@
+<div class="card mb-3">
+    <div class="card-header">Uroczystości</div>
+    <div class="card-body text-primary">
+        <p class="card-text text-secondary">Wybierz uroczystość, dla której chciałbyś zobaczyć dostępne
+            produkty:</p>
+        <a href="#" class="card-link">Rocznica ślubu </a><br/>
+        <a href="#" class="card-link">Urodziny </a><br/>
+        <a href="#" class="card-link">Boże Narodzenie </a><br/>
+        <a href="#" class="card-link">Impreza firmowa </a><br/>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">Kalendarz</div>
+    <div class="card-body text-primary">
+        <p class="card-text">Tutaj będzie kalendarz nadchodzącyh świąt i wydarzeń.</p>
+    </div>
+</div>
+
+<div class="card mb-3" th:if="${pool}">
+    <div class="card-header bg-success border-success text-white">Ankieta</div>
+    <form th:action="@{'/vote/'+${pool.getId().toString()}}" method="post">
+        <div class="card-body text-success">
+            <p class="card-text" th:text="${pool.getQuestion()}">Pytanie</p>
+            <fieldset>
+                <div th:each="answer : ${pool.getAnswers()}">
+                    <label class="form-check">
+                        <input class="form-check-input" type="radio" name="vote" th:value="${answer.getId()}">
+                        <span class="form-check-label" th:text="${answer.getAnswer()}">Odpowiedź</span>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="card-footer bg-transparent border-success text-center">
+            <button type="submit" class="btn btn-secondary btn-success">Głosuj</button>
+        </div>
+    </form>
+</div>
+
+<div class="card bg-light mb-3">
+    <div class="card-header">Koszyk</div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0">Pierwszy produkt</h6>
+                <small class="text-muted">Krótki opis</small>
+            </div>
+            <span class="text-muted">12,00 PLN</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0">Drugi produkt</h6>
+                <small class="text-muted">Krótki opis</small>
+            </div>
+            <span class="text-muted">8,00 PLN</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0">Trzeci produkt</h6>
+                <small class="text-muted">Krótki opis</small>
+            </div>
+            <span class="text-muted">5,00 PLN</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <div class="text-success">
+                <h6 class="my-0">Kod promocyjny</h6>
+                <small>KUPON_NA_5PLN</small>
+            </div>
+            <span class="text-success">-5,00 PLN</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between bg-light">
+            <span><strong>Razem</strong></span>
+            <strong>20,00 PLN</strong>
+        </li>
+    </ul>
+    <div class="card-footer">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Kod promocyjny">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-secondary">Dodaj</button>
+            </div>
+        </div>
+    </div>
+</div>
