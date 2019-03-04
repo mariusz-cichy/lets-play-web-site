@@ -1,0 +1,16 @@
+version: '2'
+services:
+  mysql:
+    container_name: mysql
+    command: --secure-file-priv='/var/lib/mysql'
+    volumes:
+      - ../storage/mysql:/var/lib/mysql
+      - ./mysqlconf:/etc/mysql/conf.d
+    restart: always
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "3306:3306"
+
+      

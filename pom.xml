@@ -15,32 +15,28 @@
     <description>Let's Play Web Site</description>
 
     <profiles>
-        <!--<profile>-->
-            <!--<id>dev-windows-home</id>-->
-            <!--<activation>-->
-                <!--<os>-->
-                    <!--<name>windows 10</name>-->
-                    <!--<family>windows</family>-->
-                    <!--<arch>amd64</arch>-->
-                    <!--<version>10.0</version>-->
-                <!--</os>-->
-            <!--</activation>-->
-            <!--<properties>-->
-                <!--<docker.host>tcp://localhost:2375</docker.host>-->
-            <!--</properties>-->
-        <!--</profile>-->
         <profile>
-            <id>dev-windows-professional</id>
+            <id>dev-windows-home</id>
             <activation>
-                <os>
-                    <name>windows 10</name>
-                    <family>windows</family>
-                    <arch>amd64</arch>
-                    <version>10.0</version>
-                </os>
+                <property>
+                    <name>OS_VERSION</name>
+                    <value>home</value>
+                </property>
             </activation>
             <properties>
                 <docker.host>tcp://192.168.99.100:2376</docker.host>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev-windows-professional</id>
+            <activation>
+                <property>
+                    <name>OS_VERSION</name>
+                    <value>professional</value>
+                </property>
+            </activation>
+            <properties>
+                <docker.host>tcp://localhost:2375</docker.host>
             </properties>
         </profile>
     </profiles>
