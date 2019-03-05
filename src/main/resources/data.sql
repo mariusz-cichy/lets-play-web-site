@@ -105,23 +105,23 @@ INSERT INTO pool_answers(pool_id, answer, votes)
 VALUES (7, "Lepiej nie mówić", 0);
 
 INSERT INTO items (id, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (1, "Anniversary", "Movado Watch", "Movado ladies watch with pink dial",
-"Made of solid, two-tone stainless steel, this polished women’s watch with smoothly sculpted lines features removable links at the back for an adjustable fit. Available with sparkling diamonds and a pink dial.",
+VALUES (1, "Anniversary", "Movado Watch", "Woman's Movado Red Label automatic watch",
+"Women''s Red Label automatic watch, 26 mm rose gold PVD-finished stainless steel case with exhibition back, black Museum dial with rose gold-toned dot and hands, and red lettering, rose gold PVD-finished stainless steel link bracelet with push-button deployment clasp.",
 200.00, NULL, 5, NULL);
 
 INSERT INTO items (id, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (2, "Anniversary", "Diamond Ring", "Our 18k Gold Diamond Ring is unique and gorgeous",
-"Our 18k gold diamond ring is unique and gorgeous. The sevenstone diamond wedding and anniversary bands are the purest symbol of true love representing the journey you travelled since the moment you met, the experience you are living now, and the unimagined excitement that your future holds.",
+VALUES (2, "Anniversary", "Diamond Ring", "Diamond Ring in 18k yellow gold",
+"A true design masterpiece. Flawlessly engineered, the six-prong setting virtually disappears and allows the brilliant diamond to float above the warm 18k yellow gold band and into the light.",
 700.00, NULL, 5, NULL);
 
 INSERT INTO items (id, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
 VALUES (3, "Anniversary", "Titan Watch", "A beautiful watch from Titan",
-"Quartz movement, dress watch, polished gold-tone stainless steel bezel and crown, stainless steel case and case back, mineral crystal, 30 metres/100 feet water resistant.",
+"Analogue watch with a circular case and stainless steel back, has a stylised floral-shaped bezel embellished with white stones Water-resistant up to 30 m.",
 200.00, NULL, 5, NULL);
 
 INSERT INTO items (id, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
 VALUES (4, "Anniversary", "Ring for her and Ring for him", "A perfect Anniversary Gift",
-"A gorgeous 18k gold diamond ring with seven stone diamonds for her and a simple 18k gold ring for him. This is a perfect gift for an anniversary.",
+"A gorgeous 18k gold diamond ring for her and a simple 18k gold ring for him. This is a perfect gift for an anniversary.",
 1000.00, NULL, 5, NULL);
 
 INSERT INTO items (id, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
