@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/lets-party-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/zabuto_calendar.css">
+    <link rel="stylesheet" href="/webjars/font-awesome/css/all.css">
 
     <title>Let's Party!</title>
 </head>
@@ -86,6 +88,32 @@
 <script src="/webjars/jquery/jquery.slim.min.js"></script>
 <script src="/webjars/popper.js/umd/popper.min.js"></script>
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/zabuto_calendar.js"></script>
+<script>
+    var eventData = [
+        {
+            "date": "2019-03-08",
+            "badge": false,
+            "title": "Dzień Kobiet"
+        },
+        {
+            "date": "2019-03-09",
+            "badge": false,
+            "title": "ISTQB Poziom Podstawowy - Dzień 1"
+        },
+        {
+            "date": "2019-03-10",
+            "badge": false,
+            "title": "ISTQB Poziom Podstawowy - Dzień 2"
+        }
+    ];
+    $(document).ready(function () {
+        $('#calendar').zabuto_calendar({
+            language: 'pl',
+            data: eventData
+        });
+    });
+</script>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
