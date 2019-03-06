@@ -105,16 +105,47 @@
             "date": "2019-03-10",
             "badge": false,
             "title": "ISTQB Poziom Podstawowy - Dzień 2"
+        },
+        {
+            "date": "2019-03-13",
+            "badge": false,
+            "title": "Wydarzenie",
+            "body":"<p class=\"lead\">Party<\/p><p>Like it's 1999.<\/p>",
+            "footer":"At Paisley Park",
+            "classname":"bg-danger"
+        },
+        {
+            "date": "2019-03-14",
+            "badge": false,
+            "title": "Wydarzenie",
+            "body":"<p class=\"lead\">Party<\/p><p>Like it's 1999.<\/p>",
+            "footer":"At Paisley Park",
+            "classname":"bg-warning"
+        },
+        {
+            "date": "2019-03-15",
+            "badge": false,
+            "title": "Wydarzenie",
+            "body":"<p class=\"lead\">Party<\/p><p>Like it's 1999.<\/p>",
+            "footer":"At Paisley Park",
+            "classname":"bg-success"
         }
     ];
     $(document).ready(function () {
         $('#calendar').zabuto_calendar({
             language: 'pl',
             today: true,
+            nav_icon: {
+                prev: '<i class="fa fa-chevron-left"></i>',
+                next: '<i class="fa fa-chevron-right"></i>'
+            },
             data: eventData,
             legend: [
                 {type: "text", label: "Wydarzenie specjalne", badge: "00"},
-                {type: "block", label: "Wydarzenie regularne"}
+                {type: "block", label: "Wydarzenie cykliczne"},
+                {type: "text", label: "<br\/>Źle"},
+                {type: "list", list: ["list-group-item-danger", "list-group-item-warning", "list-group-item-success"]},
+                {type: "text", label: "Dobrze"}
             ]
         });
     });
