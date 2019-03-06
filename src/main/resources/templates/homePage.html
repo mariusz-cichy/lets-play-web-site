@@ -110,7 +110,12 @@
     $(document).ready(function () {
         $('#calendar').zabuto_calendar({
             language: 'pl',
-            data: eventData
+            today: true,
+            data: eventData,
+            legend: [
+                {type: "text", label: "Wydarzenie specjalne", badge: "00"},
+                {type: "block", label: "Wydarzenie regularne"}
+            ]
         });
     });
 </script>
