@@ -54,8 +54,6 @@ public class WebPartyController {
     @PostMapping("/vote/{id}")
     public String vote(@PathVariable String id,  @RequestParam("vote") String vote) {
         poolRepository.updateUserSetStatusForName(Integer.valueOf(vote));
-        System.out.println("Głos oddany na: " + id);
-        System.out.println("Głos oddany na vote: " + vote);
         return "redirect:/pools";
     }
 

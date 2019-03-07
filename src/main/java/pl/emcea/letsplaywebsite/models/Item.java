@@ -7,9 +7,9 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private String celebrations;
     @Lob
     private Byte[] image;
-    private String celebrations;
     private String name;
     private String description;
     @Lob
@@ -18,6 +18,10 @@ public class Item {
     private Double hire;
     private Integer stock_buy;
     private Integer stock_hire;
+
+    public Item() {
+
+    }
 
     public Item(Byte[] image, String celebrations, String name, String description, String details, Double buy, Double hire, Integer stock_buy, Integer stock_hire) {
         this.image = image;

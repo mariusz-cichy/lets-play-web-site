@@ -10,4 +10,92 @@
     Roles: <span sec:authentication="principal.authorities"></span> |
     <a th:href="@{/logout}">Sign Out</a>
     </span>
+
+    <script src="/webjars/jquery/jquery.slim.min.js"></script>
+    <script src="/webjars/popper.js/umd/popper.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/zabuto_calendar.js"></script>
+    <script>
+        var eventData = [
+            {
+                "date": "2019-03-08",
+                "badge": false,
+                "title": "Dzień Kobiet"
+            },
+            {
+                "date": "2019-03-09",
+                "badge": false,
+                "title": "ISTQB Poziom Podstawowy - Dzień 1"
+            },
+            {
+                "date": "2019-03-10",
+                "badge": false,
+                "title": "ISTQB Poziom Podstawowy - Dzień 2"
+            },
+            {
+                "date": "2019-03-13",
+                "badge": false,
+                "title": "Wydarzenie",
+                "body":"<p class=\"lead\">Party<\/p><p>Like it's 1999.<\/p>",
+                "footer":"At Paisley Park",
+                "classname":"bg-danger"
+            },
+            {
+                "date": "2019-03-14",
+                "badge": false,
+                "title": "Wydarzenie",
+                "body":"<p class=\"lead\">Party<\/p><p>Like it's 1999.<\/p>",
+                "footer":"At Paisley Park",
+                "classname":"bg-warning"
+            },
+            {
+                "date": "2019-03-15",
+                "badge": false,
+                "title": "Wydarzenie",
+                "body":"<p class=\"lead\">Party<\/p><p>Like it's 1999.<\/p>",
+                "footer":"At Paisley Park",
+                "classname":"bg-success"
+            }
+        ];
+        $(document).ready(function () {
+            $('#calendar').zabuto_calendar({
+                language: 'pl',
+                today: true,
+                nav_icon: {
+                    prev: '<i class="fa fa-chevron-left"></i>',
+                    next: '<i class="fa fa-chevron-right"></i>'
+                },
+                data: eventData,
+                legend: [
+                    {type: "block", label: "Wydarzenie cykliczne"},
+                    {type: "spacer"},
+                    {type: "text", label: "Ważne"},
+                    {type: "list", list: ["list-group-item-success", "list-group-item-warning", "list-group-item-danger"]},
+                    {type: "text", label: "Mało ważne"}
+                ]
+            });
+        });
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </footer>
