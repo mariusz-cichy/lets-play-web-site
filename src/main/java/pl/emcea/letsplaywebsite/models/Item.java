@@ -7,6 +7,8 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Lob
+    private Byte[] image;
     private String celebrations;
     private String name;
     private String description;
@@ -17,7 +19,8 @@ public class Item {
     private Integer stock_buy;
     private Integer stock_hire;
 
-    public Item(String celebrations, String name, String description, String details, Double buy, Double hire, Integer stock_buy, Integer stock_hire) {
+    public Item(Byte[] image, String celebrations, String name, String description, String details, Double buy, Double hire, Integer stock_buy, Integer stock_hire) {
+        this.image = image;
         this.celebrations = celebrations;
         this.name = name;
         this.description = description;
@@ -34,6 +37,14 @@ public class Item {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 
     public String getCelebrations() {
