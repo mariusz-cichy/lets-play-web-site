@@ -1,24 +1,34 @@
 package pl.emcea.letsplaywebsite.controllers;
 
-import org.springframework.beans.factory.annotation.Value;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.emcea.letsplaywebsite.models.Greeting;
+import pl.emcea.letsplaywebsite.models.Item;
 import pl.emcea.letsplaywebsite.models.Pool;
+import pl.emcea.letsplaywebsite.repositories.ItemRepository;
 import pl.emcea.letsplaywebsite.repositories.PoolRepository;
+import pl.emcea.letsplaywebsite.services.ImageService;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Controller
 public class WebPartyController {
 
     PoolRepository poolRepository;
+    ItemRepository itemRepository;
+    ImageService imageService;
 
-    public WebPartyController(PoolRepository poolRepository) {
+    public WebPartyController(PoolRepository poolRepository, ItemRepository itemRepository, ImageService imageService) {
         this.poolRepository = poolRepository;
+        this.itemRepository = itemRepository;
+        this.imageService = imageService;
     }
 
     @RequestMapping({"", "/", "/home"})
@@ -26,6 +36,45 @@ public class WebPartyController {
         model.addAttribute("pool", poolRepository.findByEndDateIsNull());
         return "homePage";
     }
+
+    @RequestMapping({"/items"})
+    public String itemsPage(Model model) {
+        model.addAttribute("items", itemRepository.findByCelebrationOrderById("Rocznica ślubu"));
+        return "items";
+    }
+
+    @RequestMapping({"/items/{id}"})
+    public String itemsByCelebration(Model model, @PathVariable String id) {
+        switch (id) {
+            case "1":
+                model.addAttribute("items", itemRepository.findByCelebrationOrderById("Rocznica ślubu"));
+                break;
+            case "2":
+                model.addAttribute("items", itemRepository.findByCelebrationOrderById("Urodziny"));
+                break;
+            case "3":
+                model.addAttribute("items", itemRepository.findByCelebrationOrderById("Boże Narodzenie"));
+                break;
+            case "4":
+                model.addAttribute("items", itemRepository.findByCelebrationOrderById("Impreza firmowa"));
+                break;
+        }
+        return "items";
+    }
+
+    @RequestMapping({"/item/{id}"})
+    public String itemPage(Model model, @PathVariable String id) {
+        model.addAttribute("item", itemRepository.findById(Integer.valueOf(id)).get());
+        return "item";
+    }
+
+
+    @GetMapping("/items/{id}/image")
+    public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
+        Item item = itemRepository.findById(Integer.valueOf(id)).get();
+        imageService.loadImage(item.getImage(), response);
+    }
+
 
     @RequestMapping("/about")
     public String aboutPage() {

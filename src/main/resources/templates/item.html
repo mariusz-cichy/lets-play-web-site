@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-row"  th:each="item : ${items}" data-href="/item/{id}" th:data-href="'/item/'+${item.getId()}">
+                    <tr>
                         <td>
                             <img src="../../static/images/guacamole400x400WithX.jpg"
                                  th:src="@{'/items/'+${item.getId()}+'/image'}"
@@ -54,16 +54,9 @@
     </div>
 </div>
 
+
 <div th:replace="~{fragments/footer}"></div>
 
-<!--Skrypt po to, żeby można było kliknąć wiersz w tabelce-->
-<script type="text/javascript">
-    $(document).ready(function($) {
-        $(".table-row").click(function() {
-            window.document.location = $(this).data("href");
-        });
-    });
-</script>
 
 </body>
 </html>

@@ -8,14 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import pl.emcea.letsplaywebsite.models.Product;
 import pl.emcea.letsplaywebsite.services.ImageService;
 import pl.emcea.letsplaywebsite.services.ProductService;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 @Controller
 public class ImageController {
@@ -26,29 +20,6 @@ public class ImageController {
     public ImageController(ProductService productService, ImageService imageService) {
         this.productService = productService;
         this.imageService = imageService;
-    }
-
-    @GetMapping("/image")
-    public String image(){
-        return "imagePage";
-    }
-
-    @GetMapping("product/{id}/productimage")
-    public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
-        Product product = productService.findById(Long.valueOf(id));
-
-        if (product.getImage() != null) {
-            byte[] byteArray = new byte[product.getImage().length];
-            int i = 0;
-
-            for (Byte wrappedByte : product.getImage()){
-                byteArray[i++] = wrappedByte; //auto unboxing
-            }
-
-            response.setContentType("image/jpeg");
-            InputStream is = new ByteArrayInputStream(byteArray);
-            IOUtils.copy(is, response.getOutputStream());
-        }
     }
 
     @GetMapping("/product/{id}/image")

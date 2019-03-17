@@ -104,80 +104,80 @@ VALUES (7, 'Słaba', 1);
 INSERT INTO pool_answers(pool_id, answer, votes)
 VALUES (7, 'Lepiej nie mówić', 0);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (1, LOAD_FILE('/var/lib/mysql/play/movado-watch-300x300.jpg'), 'Anniversary', 'Movado Watch', 'Woman\'s Movado Red Label automatic watch',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (1, LOAD_FILE('/var/lib/mysql/play/movado-watch-300x300.jpg'), 'Rocznica ślubu', 'Zegarek Movado', 'Woman\'s Movado Red Label automatic watch',
 'Women\'s Red Label automatic watch, 26 mm rose gold PVD-finished stainless steel case with exhibition back, black Museum dial with rose gold-toned dot and hands, and red lettering, rose gold PVD-finished stainless steel link bracelet with push-button deployment clasp.',
 200.00, NULL, 5, NULL);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (2, LOAD_FILE('/var/lib/mysql/play/golden-ring-300x300.jpg'), 'Anniversary', 'Diamond Ring', 'Diamond Ring in 18k yellow gold',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (2, LOAD_FILE('/var/lib/mysql/play/titan-watch-300x300.jpg'), 'Rocznica ślubu', 'Zegarek Titan', 'Piękny zegarek firmy Titan.',
+        'Analogue watch with a circular case and stainless steel back, has a stylised floral-shaped bezel embellished with white stones Water-resistant up to 30 m.',
+        200.00, NULL, 5, NULL);
+
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (3, LOAD_FILE('/var/lib/mysql/play/golden-ring-300x300.jpg'), 'Rocznica ślubu', 'Pierścionek z diamentem', '18 karatowy złoty pierścionek z diamentem.',
 'A true design masterpiece. Flawlessly engineered, the six-prong setting virtually disappears and allows the brilliant diamond to float above the warm 18k yellow gold band and into the light.',
 700.00, NULL, 5, NULL);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (3, LOAD_FILE('/var/lib/mysql/play/titan-watch-300x300.jpg'), 'Anniversary', 'Titan Watch', 'A beautiful watch from Titan',
-'Analogue watch with a circular case and stainless steel back, has a stylised floral-shaped bezel embellished with white stones Water-resistant up to 30 m.',
-200.00, NULL, 5, NULL);
-
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (4, LOAD_FILE('/var/lib/mysql/play/couple-rings-300x300.jpg'), 'Anniversary', 'Ring for her and Ring for him', 'A perfect Anniversary Gift',
-'A gorgeous 18k gold diamond ring for her and a simple 18k gold ring for him. This is a perfect gift for an anniversary.',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (4, LOAD_FILE('/var/lib/mysql/play/couple-rings-300x300.jpg'), 'Rocznica ślubu', 'Pierścionek dla niej i dla niego', 'Doskonały prezent z okazji rocznicy ślubu',
+'A gorgeous 18k gold diamond ring for her and a simple 18k gold ring for him. To doskonały prezent z okazji Rocznica ślubu.',
 1000.00, NULL, 5, NULL);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (5, NULL, 'Birthday', 'iPhone 4', 'Apple iPhone 4 Black 32GB Mobile Phone - NEW - Unlocked',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (5, LOAD_FILE('/var/lib/mysql/play/iphonex-black-300x300.jpg'), 'Urodziny', 'iPhone X', 'Telefon Apple iPhone X Czarny 256GB',
 'iPhone 4 features a 5 megapixel autofocus camera with a 5x digital zoom, a backside illuminated sensor and built-in LED flash that allows you to take amazing pictures even in low light and dark environments. iPhone 4 lets you record and edit incredible HD video and the popular tap to focus feature now works while recording video. You can use the iPhone 4‘s LED flash for both still photography and video recording. The iMovie® app for iPhone lets you combine movie clips, add dynamic transitions and themes and include photos and music, and users can buy it through the App Store right on their phone. The iPhone 4 includes Multitasking, Folders, enhanced Mail, deeper Enterprise support and Apple’s iAd mobile advertising platform. With Multitasking, users can now instantly switch between any of their apps while preserving battery life. With Folders, users can easily organize their apps into collections by simply dragging one app on top of another.',
-859.00, NULL, 5, NULL);
+4290.00, NULL, 5, NULL);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (6, NULL, 'Birthday', 'Birthday Cake', 'Wiggles Birthday cake to make your kid feel special',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (6, LOAD_FILE('/var/lib/mysql/play/birthday-cake-300x300.jpg'), 'Urodziny', 'Tort urodzinowy', 'Wiggles Birthday cake to make your kid feel special',
 'For that special occasion you only want the best. This cake is for your \'Little Wiggle\' who would love the mouthwatering white chocolate cake with the lovely topping featuring the Wiggles in their big red car. Specially crafted to the highest quality at a reasonable price.',
 200.00, NULL, 0, NULL);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (7, NULL, 'Birthday', 'Flower Bouquet & Vase', 'Surprise your loved ones with flowers',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (7, LOAD_FILE('/var/lib/mysql/play/birthday-flowers-vase-300x300.jpg'), 'Urodziny', 'Bukiet kwiatów i wazon', 'Surprise your loved ones with flowers',
 'Basket of mixed flowers to make the birthday girl feel really special. Surprise your loved one with the gift that she would love.',
-50.00, 10.00, 5, 3);
+180.00, 10.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (8, NULL, 'Christmas', 'Christmas Tree', 'Delux quality Christmas Tree for home or office',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (8, LOAD_FILE('/var/lib/mysql/play/christmas-tree-300x300.jpg'), 'Boże Narodzenie', 'Christmas Tree', 'Delux quality Christmas Tree for home or office',
 'Deluxe green Majestic Pine Traditional Christmas Tree with metal hinged branches. Green Metal Stand. Bulky item. Size: 3.00 metres high.',
 300.00, 20.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (9, NULL, 'Christmas', 'Christmas Trees', 'Delux quality Christmas Trees for home or office',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (9, LOAD_FILE('/var/lib/mysql/play/multiple-christmas-trees.jpg'), 'Boże Narodzenie', 'Christmas Trees', 'Delux quality Christmas Trees for home or office',
 'Deluxe green Majestic Pine Traditional Christmas Trees with metal hinged branches. Green Metal Stand. Bulky item. Size: 2.1 meters high',
 500.00, 50.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (10, NULL, 'Christmas', 'Christmas Decoration', 'Silver Jewel Ball Decoration for your Christmas tree',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (10, LOAD_FILE('/var/lib/mysql/play/christmas-decoration-folk-300x300.jpg'), 'Boże Narodzenie', 'Christmas Decoration', 'Silver Jewel Ball Decoration for your Christmas tree',
 'Silver acrylic ball with diamontes and silver glitter hand painted decoration. Size: 80mm diameter',
 10.00, 2.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (11, NULL, 'Christmas', 'Christmas Decoration', 'Silver & Blue Ball Decoration for your Christmas tree',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (11, LOAD_FILE('/var/lib/mysql/play/christmas-candles-300x300.jpg'), 'Boże Narodzenie', 'Christmas Decoration', 'Silver & Blue Ball Decoration for your Christmas tree',
 'Silver & Blue acrylic ball with diamontes and colored glitter hand painted decoration. Size: 80mm diameter',
 10.00, 2.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (12, NULL, 'Corporate', 'Compendium', 'Diary/Organize r/Compendium for office use',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (12, LOAD_FILE('/var/lib/mysql/play/compendium-300x300.jpg'), 'Impreza firmowa', 'Organizator', 'Diary/Organizer/Compendium for office use',
 'Smooth leather-looking exterior with loop closure. Available in black & comes complete with mouse pad, note & card pockets, pen holder & lined notepad.',
-20.00, 2.00, 5, 3);
+300.00, 30.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (13, NULL, 'Corporate', 'Mouse Pad', 'Basic Mouse Pad',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (13, LOAD_FILE('/var/lib/mysql/play/mouse-pad-300x300.jpg'), 'Impreza firmowa', 'Podkładka pod myszkę', 'Basic Mouse Pad',
 'Thin, hard surface offers improved tracking and responsiveness. Non-skid rubber base protects desktops from scuffs and scratches. Durable polyester construction. Size: 239 x 190 mm',
-7.00, 2.00, 5, 3);
+30.00, 3.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (14, NULL, 'Corporate', 'Mug', 'Classic Coffee Mug',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (14, LOAD_FILE('/var/lib/mysql/play/mug-300x300.jpg'), 'Impreza firmowa', 'Kubek', 'Classic Coffee Mug',
 'Perfect for home or office, the coffee mug is microwave and dishwasher safe.',
-7.00, 1.00, 5, 3);
+50.00, 1.00, 5, 3);
 
-INSERT INTO items (id, image, celebrations, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (15, NULL, 'Corporate', 'Pen', 'Classic Pen',
+INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
+VALUES (15, LOAD_FILE('/var/lib/mysql/play/pen-300x300.jpg'), 'Impreza firmowa', 'Pióro', 'Classic Pen',
 'Quality pens at an affordable price. Nib Size 1.0mm. Pack of 50',
-25.00, NULL, 5, NULL);
+225.00, NULL, 25, NULL);
 
 
 

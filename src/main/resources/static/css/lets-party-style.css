@@ -7,3 +7,7 @@
     font-size: 1.4rem;
     padding-right: 1.4rem;
 }
+
+.table-row{
+    cursor:pointer;
+}

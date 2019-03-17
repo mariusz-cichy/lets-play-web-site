@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Integer> {
-    List<Item> findAllByCelebrationsOrderById(String celebration);
+    List<Item> findByCelebrationOrderById(String celebration);
 }

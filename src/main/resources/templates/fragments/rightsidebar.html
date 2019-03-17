@@ -1,23 +1,23 @@
-<div class="card mb-3">
+<div class="card mb-3" style="width: 22rem;">
     <div class="card-header">Uroczystości</div>
     <div class="card-body text-primary">
         <p class="card-text text-secondary">Wybierz uroczystość, dla której chciałbyś zobaczyć dostępne
             produkty:</p>
-        <a href="#" class="card-link">Rocznica ślubu </a><br/>
-        <a href="#" class="card-link">Urodziny </a><br/>
-        <a href="#" class="card-link">Boże Narodzenie </a><br/>
-        <a href="#" class="card-link">Impreza firmowa </a><br/>
+        <a href="/items/1" class="card-link">Rocznica ślubu </a><br/>
+        <a href="/items/2" class="card-link">Urodziny </a><br/>
+        <a href="/items/3" class="card-link">Boże Narodzenie </a><br/>
+        <a href="/items/4" class="card-link">Impreza firmowa </a><br/>
     </div>
 </div>
 
-<div class="card mb-3">
+<div class="card mb-3" style="width: 22rem;">
     <div class="card-header">Kalendarz</div>
     <div class="card-body">
         <div id="calendar" style="margin: 0 auto;"></div>
     </div>
 </div>
 
-<div class="card mb-3" th:if="${pool}">
+<div class="card mb-3" style="width: 22rem;" th:if="${pool}">
     <div class="card-header bg-success border-success text-white">Ankieta</div>
     <form th:action="@{'/vote/'+${pool.getId().toString()}}" method="post">
         <div class="card-body text-success">
