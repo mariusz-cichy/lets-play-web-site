@@ -5,9 +5,9 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.emcea.letsplaywebsite.models.Greeting;
-import pl.emcea.letsplaywebsite.models.Item;
-import pl.emcea.letsplaywebsite.models.Pool;
+import pl.emcea.letsplaywebsite.models.*;
+import pl.emcea.letsplaywebsite.repositories.BasketItemRepository;
+import pl.emcea.letsplaywebsite.repositories.CustomerRepository;
 import pl.emcea.letsplaywebsite.repositories.ItemRepository;
 import pl.emcea.letsplaywebsite.repositories.PoolRepository;
 import pl.emcea.letsplaywebsite.services.ImageService;
@@ -24,11 +24,19 @@ public class WebPartyController {
     PoolRepository poolRepository;
     ItemRepository itemRepository;
     ImageService imageService;
+    BasketItemRepository basketItemRepository;
+    CustomerRepository customerRepository;
 
-    public WebPartyController(PoolRepository poolRepository, ItemRepository itemRepository, ImageService imageService) {
+    public WebPartyController(PoolRepository poolRepository,
+                              ItemRepository itemRepository,
+                              ImageService imageService,
+                              BasketItemRepository basketItemRepository,
+                              CustomerRepository customerRepository) {
         this.poolRepository = poolRepository;
         this.itemRepository = itemRepository;
         this.imageService = imageService;
+        this.basketItemRepository = basketItemRepository;
+        this.customerRepository = customerRepository;
     }
 
     @RequestMapping({"", "/", "/home"})
@@ -72,9 +80,17 @@ public class WebPartyController {
     public String buyHirePage(@PathVariable String id,
                               @RequestParam(value = "buy_pcs") String buy_pcs,
                               @RequestParam(value = "hire_pcs", required = false) String hire_pcs) {
+
+        Customer customer;
+        customer = customerRepository.findById(1).get();
+        Item item;
+        item = itemRepository.findById(Integer.valueOf(id)).get();
+
         System.out.println("id: " + id);
         System.out.println("buy_pcs: " + buy_pcs);
         System.out.println("hire_pcs: " + hire_pcs);
+        BasketItem basketItem = new BasketItem(customer, item, Integer.valueOf(buy_pcs), Integer.valueOf(hire_pcs));
+        basketItemRepository.save(basketItem);
         return "redirect:/item/" + id;
     }
 

@@ -1,9 +1,7 @@
 package pl.emcea.letsplaywebsite.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity(name="customers")
 public class Customer {
@@ -12,9 +10,14 @@ public class Customer {
     private Integer id;
     private String firstName;
     private String lastName;
+    @Email
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private CustomerStatus status;
+
+    public Customer() {
+    }
 
     public Customer(String firstName, String lastName, String email, String password, CustomerStatus status) {
         this.firstName = firstName;

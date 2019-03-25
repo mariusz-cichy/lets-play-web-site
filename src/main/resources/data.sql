@@ -1,19 +1,8 @@
-INSERT INTO products(id, name, image)
-VALUES (1, 'Balon: Cyfra 2', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_2.jpg'));
-INSERT INTO products(id, name, image)
-VALUES (2, 'Balon: Cyfra 3', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_3.jpg'));
-INSERT INTO products(id, name, image)
-VALUES (3, 'Balon: Cyfra 4', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_4.jpg'));
-INSERT INTO products(id, name, image)
-VALUES (4, 'Balon: Cyfra 5', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_5.jpg'));
-INSERT INTO products(id, name, image)
-VALUES (5, 'Balon: Cyfra 6', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_6.jpg'));
-INSERT INTO products(id, name, image)
-VALUES (6, 'Balon: Cyfra 7', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_7.jpg'));
-INSERT INTO products(id, name, image)
-VALUES (7, 'Balon: Cyfra 8', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_8.jpg'));
-INSERT INTO products(id, name, image)
-VALUES (8, 'Balon: Cyfra 9', LOAD_FILE('/var/lib/mysql/play/balon_cyfra_9.jpg'));
+INSERT INTO customers(id, first_name, last_name, email, status)
+VALUES (1, 'Mariusz', 'Cichy', 'mariusz.cichy@mcpm.pl', 'REGISTERED');
+INSERT INTO customers(id, first_name, last_name, email, status)
+VALUES (2, 'Anna', 'Cichy', 'anna.cichy@mcpm.pl', 'REGISTERED');
+
 
 INSERT INTO pools(id, question, start_date, end_date)
 VALUES (1, 'Czy jesteś zadowolony z asortymentu choinek świątecznych oferowanych przez Let\'s Play?',
