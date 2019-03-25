@@ -62,12 +62,21 @@ public class WebPartyController {
         return "items";
     }
 
-    @RequestMapping({"/item/{id}"})
+    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String itemPage(Model model, @PathVariable String id) {
         model.addAttribute("item", itemRepository.findById(Integer.valueOf(id)).get());
         return "item";
     }
 
+    @RequestMapping(value = "/item/{id}", method = {RequestMethod.POST})
+    public String buyHirePage(@PathVariable String id,
+                              @RequestParam(value = "buy_pcs") String buy_pcs,
+                              @RequestParam(value = "hire_pcs", required = false) String hire_pcs) {
+        System.out.println("id: " + id);
+        System.out.println("buy_pcs: " + buy_pcs);
+        System.out.println("hire_pcs: " + hire_pcs);
+        return "redirect:/item/" + id;
+    }
 
     @GetMapping("/items/{id}/image")
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
@@ -101,7 +110,7 @@ public class WebPartyController {
 
 
     @PostMapping("/vote/{id}")
-    public String vote(@PathVariable String id,  @RequestParam("vote") String vote) {
+    public String vote(@PathVariable String id, @RequestParam("vote") String vote) {
         poolRepository.updateUserSetStatusForName(Integer.valueOf(vote));
         return "redirect:/pools";
     }

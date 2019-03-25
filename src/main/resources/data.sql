@@ -140,22 +140,22 @@ VALUES (7, LOAD_FILE('/var/lib/mysql/play/birthday-flowers-vase-300x300.jpg'), '
 180.00, 10.00, 5, 3);
 
 INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (8, LOAD_FILE('/var/lib/mysql/play/christmas-tree-300x300.jpg'), 'Boże Narodzenie', 'Christmas Tree', 'Delux quality Christmas Tree for home or office',
+VALUES (8, LOAD_FILE('/var/lib/mysql/play/christmas-tree-300x300.jpg'), 'Boże Narodzenie', 'Choinka świąteczna', 'Delux quality Christmas Tree for home or office',
 'Deluxe green Majestic Pine Traditional Christmas Tree with metal hinged branches. Green Metal Stand. Bulky item. Size: 3.00 metres high.',
 300.00, 20.00, 5, 3);
 
 INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (9, LOAD_FILE('/var/lib/mysql/play/multiple-christmas-trees.jpg'), 'Boże Narodzenie', 'Christmas Trees', 'Delux quality Christmas Trees for home or office',
+VALUES (9, LOAD_FILE('/var/lib/mysql/play/multiple-christmas-trees.jpg'), 'Boże Narodzenie', 'Zestaw choinek świątecznych', 'Delux quality Christmas Trees for home or office',
 'Deluxe green Majestic Pine Traditional Christmas Trees with metal hinged branches. Green Metal Stand. Bulky item. Size: 2.1 meters high',
 500.00, 50.00, 5, 3);
 
 INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (10, LOAD_FILE('/var/lib/mysql/play/christmas-decoration-folk-300x300.jpg'), 'Boże Narodzenie', 'Christmas Decoration', 'Silver Jewel Ball Decoration for your Christmas tree',
+VALUES (10, LOAD_FILE('/var/lib/mysql/play/christmas-decoration-folk-300x300.jpg'), 'Boże Narodzenie', 'Bombki kaszubskie', 'Silver Jewel Ball Decoration for your Christmas tree',
 'Silver acrylic ball with diamontes and silver glitter hand painted decoration. Size: 80mm diameter',
 10.00, 2.00, 5, 3);
 
 INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
-VALUES (11, LOAD_FILE('/var/lib/mysql/play/christmas-candles-300x300.jpg'), 'Boże Narodzenie', 'Christmas Decoration', 'Silver & Blue Ball Decoration for your Christmas tree',
+VALUES (11, LOAD_FILE('/var/lib/mysql/play/christmas-candles-300x300.jpg'), 'Boże Narodzenie', 'Świece świąteczne', 'Silver & Blue Ball Decoration for your Christmas tree',
 'Silver & Blue acrylic ball with diamontes and colored glitter hand painted decoration. Size: 80mm diameter',
 10.00, 2.00, 5, 3);
 

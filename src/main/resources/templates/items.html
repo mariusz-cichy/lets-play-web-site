@@ -24,27 +24,32 @@
         <div class="col-md-8 order-md-1">
 
             <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Nazwa</th>
-                        <th scope="col">Opis</th>
-                        <th scope="col">Cena<br/>zakupu [PLN]</th>
-                        <th scope="col">Cena<br/>wypożyczenia [PLN]</th>
-                    </tr>
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Opis</th>
+                    <th scope="col">Cena<br/>zakupu [PLN]</th>
+                    <th scope="col">Cena<br/>wypożyczenia [PLN]</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr class="table-row"  th:each="item : ${items}" data-href="/item/{id}" th:data-href="'/item/'+${item.getId()}">
-                        <td>
-                            <img src="../../static/images/guacamole400x400WithX.jpg"
-                                 th:src="@{'/items/'+${item.getId()}+'/image'}"
-                                 width="150" height="150">
-                        </td>
-                        <td th:text="${item.getName()}">Tutaj będzie nazwa</td>
-                        <td th:text="${item.getDescription()}">Tutaj będzie opis</td>
-                        <td th:text="${item.getBuy()}? ${#numbers.formatDecimal(item.getBuy(),1, 'WHITESPACE',2, 'COMMA')}:'-'">Tutaj będzie cena zakupu</td>
-                        <td th:text="${item.getHire()}? ${#numbers.formatDecimal(item.getHire(),1, 'WHITESPACE',2, 'COMMA')}:'-'">Tutaj będzie cena wypożyczenia</td>
-                    </tr>
+                <tr class="table-row" th:each="item : ${items}" data-href="/item/{id}"
+                    th:data-href="'/item/'+${item.getId()}">
+                    <td>
+                        <img src="../../static/images/guacamole400x400WithX.jpg"
+                             th:src="@{'/items/'+${item.getId()}+'/image'}"
+                             width="150" height="150">
+                    </td>
+                    <td th:text="${item.getName()}">Tutaj będzie nazwa</td>
+                    <td th:text="${item.getDescription()}">Tutaj będzie opis</td>
+                    <td th:text="${item.getBuy()}? ${#numbers.formatDecimal(item.getBuy(),1, 'WHITESPACE',2, 'COMMA')}:'-'">
+                        Tutaj będzie cena zakupu
+                    </td>
+                    <td th:text="${item.getHire()}? ${#numbers.formatDecimal(item.getHire(),1, 'WHITESPACE',2, 'COMMA')}:'-'">
+                        Tutaj będzie cena wypożyczenia
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -58,8 +63,8 @@
 
 <!--Skrypt po to, żeby można było kliknąć wiersz w tabelce-->
 <script type="text/javascript">
-    $(document).ready(function($) {
-        $(".table-row").click(function() {
+    $(document).ready(function ($) {
+        $(".table-row").click(function () {
             window.document.location = $(this).data("href");
         });
     });

@@ -22,29 +22,70 @@
     <div class="row">
 
         <div class="col-md-8 order-md-1">
-
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Nazwa</th>
-                        <th scope="col">Opis</th>
-                        <th scope="col">Cena<br/>zakupu [PLN]</th>
-                        <th scope="col">Cena<br/>wypożyczenia [PLN]</th>
-                    </tr>
-                </thead>
+            <h4 class="mb-3" th:text="${item.getName()}">Tutaj będzie nazwa produktu</h4>
+            <hr class="">
+            <table class="table table-borderless">
                 <tbody>
-                    <tr>
-                        <td>
-                            <img src="../../static/images/guacamole400x400WithX.jpg"
-                                 th:src="@{'/items/'+${item.getId()}+'/image'}"
-                                 width="150" height="150">
-                        </td>
-                        <td th:text="${item.getName()}">Tutaj będzie nazwa</td>
-                        <td th:text="${item.getDescription()}">Tutaj będzie opis</td>
-                        <td th:text="${item.getBuy()}? ${#numbers.formatDecimal(item.getBuy(),1, 'WHITESPACE',2, 'COMMA')}:'-'">Tutaj będzie cena zakupu</td>
-                        <td th:text="${item.getHire()}? ${#numbers.formatDecimal(item.getHire(),1, 'WHITESPACE',2, 'COMMA')}:'-'">Tutaj będzie cena wypożyczenia</td>
-                    </tr>
+                <tr>
+                    <td>
+                        <img src="../../static/images/guacamole400x400WithX.jpg"
+                             th:src="@{'/items/'+${item.getId()}+'/image'}"
+                             width="200" height="200">
+                    </td>
+                    <td>
+                        <form method="POST" th:action="@{'/item/'+${item.getId()}}">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td colspan="2"><p th:text="${item.getDetails()}"></p></td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td width="50%">
+                                        <div th:if="${item.getStock_buy()}">
+                                            <label for="buy">Możesz kupić: <b><span
+                                                    th:text="${item.getStock_buy()}"/></b>
+                                                szt.</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" aria-label="liczba sztuk"
+                                                       aria-describedby="liczba_sztuk" name="buy_pcs">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="buy">szt.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td width="50%">
+                                        <div th:if="${item.getStock_hire()}">
+                                            <label for="hire">Możesz wypożyczyć: <b><span
+                                                    th:text="${item.getStock_hire()}"/></b>
+                                                szt.</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" aria-label="liczba sztuk"
+                                                       aria-describedby="liczba_sztuk" name="hire_pcs">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="hire">szt.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td width="50%">
+                                        <div th:if="${item.getStock_buy()}">
+                                            <input type="submit" class="btn btn-primary" value="KUP"/>
+                                        </div>
+                                    </td>
+                                    <td width="50%">
+                                        <div th:if="${item.getStock_hire()}">
+                                            <input type="submit" class="btn btn-primary" value="WYPOŻYCZ"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
