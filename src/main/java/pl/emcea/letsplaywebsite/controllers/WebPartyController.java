@@ -1,21 +1,17 @@
 package pl.emcea.letsplaywebsite.controllers;
 
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.emcea.letsplaywebsite.models.*;
-import pl.emcea.letsplaywebsite.repositories.BasketItemRepository;
-import pl.emcea.letsplaywebsite.repositories.CustomerRepository;
-import pl.emcea.letsplaywebsite.repositories.ItemRepository;
-import pl.emcea.letsplaywebsite.repositories.PoolRepository;
+import pl.emcea.letsplaywebsite.repositories.*;
 import pl.emcea.letsplaywebsite.services.ImageService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -24,18 +20,21 @@ public class WebPartyController {
     PoolRepository poolRepository;
     ItemRepository itemRepository;
     ImageService imageService;
-    BasketItemRepository basketItemRepository;
+    OrderRepository orderRepository;
+    OrderItemRepository orderItemRepository;
     CustomerRepository customerRepository;
 
     public WebPartyController(PoolRepository poolRepository,
                               ItemRepository itemRepository,
                               ImageService imageService,
-                              BasketItemRepository basketItemRepository,
+                              OrderRepository orderRepository,
+                              OrderItemRepository orderItemRepository,
                               CustomerRepository customerRepository) {
         this.poolRepository = poolRepository;
         this.itemRepository = itemRepository;
         this.imageService = imageService;
-        this.basketItemRepository = basketItemRepository;
+        this.orderRepository = orderRepository;
+        this.orderItemRepository = orderItemRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -89,8 +88,30 @@ public class WebPartyController {
         System.out.println("id: " + id);
         System.out.println("buy_pcs: " + buy_pcs);
         System.out.println("hire_pcs: " + hire_pcs);
-        BasketItem basketItem = new BasketItem(customer, item, Integer.valueOf(buy_pcs), Integer.valueOf(hire_pcs));
-        basketItemRepository.save(basketItem);
+
+        // Check if there is OPEN order for the legged-in Customer
+        // If not then create one.
+        List<OrderItem> orderItems;
+        Order order = orderRepository.findOrderByCustomerAndStatus(customer, OrderStatus.OPEN);
+        if (order == null) {
+            orderItems = new ArrayList<>();
+            order = new Order(customer, OrderStatus.OPEN, orderItems);
+            orderRepository.save(order);
+        }
+
+        // Create new OrderItem and add to the Order
+        orderItems = order.getOrderItems();
+        OrderItem orderItem;
+        if (hire_pcs == null || hire_pcs.equals("")) {
+            orderItem = new OrderItem(item, order, Integer.valueOf(buy_pcs), 0);
+        } else {
+            orderItem = new OrderItem(item, order, Integer.valueOf(buy_pcs), Integer.valueOf(hire_pcs));
+        }
+        orderItems.add(orderItem);
+        order.setOrderItems(orderItems);
+        orderItemRepository.save(orderItem);
+        orderRepository.save(order);
+
         return "redirect:/item/" + id;
     }
 
@@ -108,13 +129,23 @@ public class WebPartyController {
 
     @GetMapping("/basket")
     public String basketPage(Model model) {
-        model.addAttribute("greeting", new Greeting());
-        return "basketPage";
+        Customer customer = customerRepository.findById(1).get();
+
+        List<OrderItem> orderItems;
+        Order order = orderRepository.findOrderByCustomerAndStatus(customer, OrderStatus.OPEN);
+        if (order == null) {
+            orderItems = new ArrayList<>();
+            order = new Order(customer, OrderStatus.OPEN, orderItems);
+            orderRepository.save(order);
+        }
+
+        model.addAttribute("order", order);
+        return "basket";
     }
 
     @PostMapping("/basket")
     public String basketSubmitPage(@ModelAttribute Greeting greeting) {
-        return "basketPage";
+        return "basket";
     }
 
     @GetMapping("/pools")

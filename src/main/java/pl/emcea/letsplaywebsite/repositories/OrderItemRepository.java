@@ -2,8 +2,8 @@ package pl.emcea.letsplaywebsite.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.emcea.letsplaywebsite.models.BasketItem;
+import pl.emcea.letsplaywebsite.models.OrderItem;
 
 @Repository
-public interface BasketItemRepository extends CrudRepository<BasketItem, Integer> {
+public interface OrderItemRepository extends CrudRepository<OrderItem, Integer> {
 }

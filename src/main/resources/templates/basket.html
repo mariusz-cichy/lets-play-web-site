@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/lets-party-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/zabuto_calendar.css">
+    <link rel="stylesheet" href="/webjars/font-awesome/css/all.css">
+
+    <title>Let's Party!</title>
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="~{fragments/header}"></div>
+
+    <div class="py-3 text-center"></div>
+    <div class="row">
+
+        <div class="col-md-8 order-md-1">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Szt. do kupienia</th>
+                    <th scope="col">Szt. do wypożyczenia</th>
+                    <th scope="col">Koszt [PLN]</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-row" th:each="orderItem : ${order.getOrderItems()}">
+                    <td th:text="${orderItem.getItem().getName()}">Tutaj będzie nazwa</td>
+                    <td th:text="${orderItem.getStock_buy()}">Tutaj będzie opis</td>
+                    <td th:text="${orderItem.getStock_hire()}">Tutaj będzie opis</td>
+                    <td th:if="${orderItem.getItem().getHire() != null}"
+                        th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy()+orderItem.getStock_hire()*orderItem.getItem().getHire(),1, 'WHITESPACE',2, 'COMMA')}">
+                        Tutaj będzie koszt
+                    </td>
+                    <td th:unless="${orderItem.getItem().getHire() != null}"
+                        th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}">
+                        Tutaj będzie koszt
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 order-md-2 mb-4">
+            <div th:replace="~{fragments/rightsidebar}"></div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+
+<!--Skrypt po to, żeby można było kliknąć wiersz w tabelce-->
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        $(".table-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
+
+</body>
+</html>

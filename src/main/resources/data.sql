@@ -121,7 +121,7 @@ VALUES (5, LOAD_FILE('/var/lib/mysql/play/iphonex-black-300x300.jpg'), 'Urodziny
 INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
 VALUES (6, LOAD_FILE('/var/lib/mysql/play/birthday-cake-300x300.jpg'), 'Urodziny', 'Tort urodzinowy', 'Wiggles Birthday cake to make your kid feel special',
 'For that special occasion you only want the best. This cake is for your \'Little Wiggle\' who would love the mouthwatering white chocolate cake with the lovely topping featuring the Wiggles in their big red car. Specially crafted to the highest quality at a reasonable price.',
-200.00, NULL, 0, NULL);
+200.00, NULL, 7, NULL);
 
 INSERT INTO items (id, image, celebration, name, description, details, buy, hire, stock_buy, stock_hire)
 VALUES (7, LOAD_FILE('/var/lib/mysql/play/birthday-flowers-vase-300x300.jpg'), 'Urodziny', 'Bukiet kwiatów i wazon', 'Surprise your loved ones with flowers',
