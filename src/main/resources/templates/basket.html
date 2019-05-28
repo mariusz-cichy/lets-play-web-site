@@ -22,28 +22,42 @@
 
         <div class="col-md-8 order-md-1">
 
-            <table class="table table-hover">
+            <table class="table table-hover" th:with="total=0">
                 <thead>
                 <tr>
+                    <th scope="col">Obraz</th>
                     <th scope="col">Nazwa</th>
-                    <th scope="col">Szt. do kupienia</th>
-                    <th scope="col">Szt. do wypożyczenia</th>
+                    <th scope="col">Do kupienia</th>
+                    <th scope="col">Do wypożyczenia</th>
                     <th scope="col">Koszt [PLN]</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="table-row" th:each="orderItem : ${order.getOrderItems()}">
+                <tr class="table-row" th:each="orderItem : ${order.getOrderItems()}" >
+                    <td>
+                        <img th:src="@{'/items/'+${orderItem.getItem().getId()}+'/image'}"
+                        width="100" height="100">
+                    </td>
                     <td th:text="${orderItem.getItem().getName()}">Tutaj będzie nazwa</td>
                     <td th:text="${orderItem.getStock_buy()}">Tutaj będzie opis</td>
                     <td th:text="${orderItem.getStock_hire()}">Tutaj będzie opis</td>
                     <td th:if="${orderItem.getItem().getHire() != null}"
-                        th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy()+orderItem.getStock_hire()*orderItem.getItem().getHire(),1, 'WHITESPACE',2, 'COMMA')}">
+                        th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy()+orderItem.getStock_hire()*orderItem.getItem().getHire(),1, 'WHITESPACE',2, 'COMMA')}"
+                        >
                         Tutaj będzie koszt
                     </td>
                     <td th:unless="${orderItem.getItem().getHire() != null}"
-                        th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}">
+                        th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}"
+                        >
                         Tutaj będzie koszt
                     </td>
+                </tr>
+                <tr class="table-row">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><b>Razem</b></td>
+                    <td th:text="${total}">Last</td>
                 </tr>
                 </tbody>
             </table>
