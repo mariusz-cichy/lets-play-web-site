@@ -29,8 +29,7 @@
                     <th scope="col"></th>
                     <th scope="col">Nazwa</th>
                     <th scope="col">Opis</th>
-                    <th scope="col">Cena<br/>zakupu [PLN]</th>
-                    <th scope="col">Cena<br/>wypożyczenia [PLN]</th>
+                    <th scope="col" class="text-right">Cena [PLN]</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,11 +42,8 @@
                     </td>
                     <td th:text="${item.getName()}">Tutaj będzie nazwa</td>
                     <td th:text="${item.getDescription()}">Tutaj będzie opis</td>
-                    <td th:text="${item.getBuy()}? ${#numbers.formatDecimal(item.getBuy(),1, 'WHITESPACE',2, 'COMMA')}:'-'">
+                    <td class="text-right" th:text="${item.getBuy()}? ${#numbers.formatDecimal(item.getBuy(),1, 'WHITESPACE',2, 'COMMA')}:'-'">
                         Tutaj będzie cena zakupu
-                    </td>
-                    <td th:text="${item.getHire()}? ${#numbers.formatDecimal(item.getHire(),1, 'WHITESPACE',2, 'COMMA')}:'-'">
-                        Tutaj będzie cena wypożyczenia
                     </td>
                 </tr>
                 </tbody>

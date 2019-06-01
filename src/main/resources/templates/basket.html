@@ -22,33 +22,52 @@
 
         <div class="col-md-8 order-md-1">
 
-            <table class="table table-hover" th:with="total=0">
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Obraz</th>
                     <th scope="col">Nazwa</th>
-                    <th scope="col">Do kupienia</th>
-                    <th scope="col">Do wypożyczenia</th>
-                    <th scope="col">Koszt [PLN]</th>
+                    <th scope="col" class="text-right">Cena</th>
+                    <th scope="col" class="text-center">Sztuk</th>
+                    <th scope="col" class="text-right">Koszt [PLN]</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="table-row" th:each="orderItem : ${order.getOrderItems()}" >
+                <tr class="table-row" th:each="orderItem : ${order.getOrderItems()}"
+                    th:attr="row-id=${orderItem.getId()}">
                     <td>
                         <img th:src="@{'/items/'+${orderItem.getItem().getId()}+'/image'}"
-                        width="100" height="100">
+                             width="100" height="100">
                     </td>
-                    <td th:text="${orderItem.getItem().getName()}">Tutaj będzie nazwa</td>
-                    <td th:text="${orderItem.getStock_buy()}">Tutaj będzie opis</td>
-                    <td th:text="${orderItem.getStock_hire()}">Tutaj będzie opis</td>
-                    <td th:if="${orderItem.getItem().getHire() != null}"
-                        th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy()+orderItem.getStock_hire()*orderItem.getItem().getHire(),1, 'WHITESPACE',2, 'COMMA')}"
-                        >
-                        Tutaj będzie koszt
+                    <td class="align-middle" th:text="${orderItem.getItem().getName()}">Tutaj będzie nazwa</td>
+                    <td class="text-right align-middle" id="price"
+                        th:text="${#numbers.formatDecimal(orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}"
+                        th:attr="row-id=${orderItem.getId()}">
+                        Tutaj będzie cena jednostkowa
                     </td>
-                    <td th:unless="${orderItem.getItem().getHire() != null}"
+
+                    <td class="text-center align-middle" width="20%">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-outline-danger btn-number" data-type="minus"
+                                        th:attr="data-field=${'quant['+orderItem.getId()+']'}, row-id=${orderItem.getId()}">
+                                    <span class="fa fa-minus text-danger"></span>
+                                </button>
+                            </div>
+                            <input type="text" id="pieces"
+                                   th:attr="name=${'quant['+orderItem.getId()+']'}, row-id=${orderItem.getId()}"
+                                   class="form-control input-number text-right" value="1" min="0" max="99">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-success btn-number" data-type="plus"
+                                        th:attr="data-field=${'quant['+orderItem.getId()+']'}, row-id=${orderItem.getId()}">
+                                    <span class="fa fa-plus text-success"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-right align-middle" id="cost"
                         th:text="${#numbers.formatDecimal(orderItem.getStock_buy()*orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}"
-                        >
+                        th:attr="row-id=${orderItem.getId()}">
                         Tutaj będzie koszt
                     </td>
                 </tr>
@@ -56,8 +75,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><b>Razem</b></td>
-                    <td th:text="${total}">Last</td>
+                    <td class="text-right"><b>Razem</b></td>
+                    <td class="text-right" id="total"
+                    <!--th:text="${#numbers.formatDecimal(total,1, 'WHITESPACE',2, 'COMMA')}"-->
+                    >
+                    Last
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -69,15 +92,107 @@
 </div>
 
 <div th:replace="~{fragments/footer}"></div>
+<script>
 
-<!--Skrypt po to, żeby można było kliknąć wiersz w tabelce-->
-<script type="text/javascript">
-    $(document).ready(function ($) {
-        $(".table-row").click(function () {
-            window.document.location = $(this).data("href");
+    $(document).ready(function () {
+
+        var total = calculateTotal().toFixed(2).replace(".", ",");
+        total = addSpaces(total);
+        $("#total").html(total);
+
+        $('.btn-number').click(function (e) {
+            e.preventDefault();
+
+            fieldName = $(this).attr('data-field');
+            type = $(this).attr('data-type');
+            var input = $("input[name='" + fieldName + "']");
+            var currentVal = parseInt(input.val());
+            var rowId = $(this).attr('row-id');
+            console.log('rowId=' + rowId);
+            var price = parseFloat($("td[id='price'][row-id=" + rowId + "]").html().replace(/\s+/g, ''));
+            console.log('price=' + price);
+            if (!isNaN(currentVal)) {
+                if (type == 'minus') {
+
+                    if (currentVal > input.attr('min')) {
+                        input.val(currentVal - 1).change();
+                    }
+                    if (parseInt(input.val()) == input.attr('min')) {
+                        $(this).attr('disabled', true);
+                    }
+
+                } else if (type == 'plus') {
+
+                    if (currentVal < input.attr('max')) {
+                        input.val(currentVal + 1).change();
+                    }
+                    if (parseInt(input.val()) == input.attr('max')) {
+                        $(this).attr('disabled', true);
+                    }
+
+                }
+            } else {
+                input.val(0);
+            }
+            var pieces = input.val();
+            console.log('pieces=' + pieces);
+            $("td[id='cost'][row-id=" + rowId + "]").html(addSpaces((price * pieces).toFixed(2).replace(".", ",")));
+            var total = calculateTotal().toFixed(2).replace(".", ",");
+            total = addSpaces(total);
+            $("#total").html(total);
         });
+        $('.input-number').focusin(function () {
+            $(this).data('oldValue', $(this).val());
+        });
+        $('.input-number').change(function () {
+
+            minValue = parseInt($(this).attr('min'));
+            maxValue = parseInt($(this).attr('max'));
+            valueCurrent = parseInt($(this).val());
+
+            name = $(this).attr('name');
+            if (valueCurrent >= minValue) {
+                $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the minimum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+            if (valueCurrent <= maxValue) {
+                $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the maximum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+
+
+        });
+
+        function calculateTotal() {
+            //run through each row
+            var total = 0;
+
+            $('tr[row-id]').each(function (i, row) {
+
+                // reference all the stuff you need first
+                var $row = $(row);
+                var cost = parseFloat($row.find("td[id='cost']").html().replace(/\s+/g, ''));
+                total = total + cost;
+            });
+            return total;
+        }
+
+        function addSpaces(nStr) {
+            nStr += '';
+            x = nStr.split(',');
+            x1 = x[0];
+            x2 = x.length > 1 ? ',' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+            }
+            return x1 + x2;
+        }
     });
 </script>
-
 </body>
 </html>

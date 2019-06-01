@@ -55,18 +55,6 @@
                                         </div>
                                     </td>
                                     <td width="50%">
-                                        <div th:if="${item.getStock_hire()}">
-                                            <label for="hire">Możesz wypożyczyć: <b><span
-                                                    th:text="${item.getStock_hire()}"/></b>
-                                                szt.</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" aria-label="liczba sztuk"
-                                                       aria-describedby="liczba_sztuk" name="hire_pcs">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="hire">szt.</span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
                                 </tr>
                                 <tr class="text-center">
@@ -76,9 +64,6 @@
                                         </div>
                                     </td>
                                     <td width="50%">
-                                        <div th:if="${item.getStock_hire()}">
-                                            <input type="submit" class="btn btn-primary" value="WYPOŻYCZ"/>
-                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>

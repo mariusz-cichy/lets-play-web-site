@@ -139,7 +139,14 @@ public class WebPartyController {
             orderRepository.save(order);
         }
 
+        double total=0;
+        for (OrderItem o : order.getOrderItems()) {
+            total = total + o.getStock_buy()*o.getItem().getBuy();
+        }
+
         model.addAttribute("order", order);
+        model.addAttribute("total", total);
+
         return "basket";
     }
 
