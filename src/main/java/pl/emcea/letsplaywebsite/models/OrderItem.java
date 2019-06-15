@@ -15,17 +15,17 @@ public class OrderItem {
     @JoinColumn(name="order_id", nullable=false)
     @JsonIgnore
     private Order order;
-    private Integer stock_buy;
+    private Integer buyPieces;
     private Integer stock_hire;
 
     public OrderItem() {
 
     }
 
-    public OrderItem(Item item, Order order, Integer stock_buy, Integer stock_hire) {
+    public OrderItem(Item item, Order order, Integer buyPieces, Integer stock_hire) {
         this.item = item;
         this.order = order;
-        this.stock_buy = stock_buy;
+        this.buyPieces = buyPieces;
         this.stock_hire = stock_hire;
     }
 
@@ -53,12 +53,12 @@ public class OrderItem {
         this.order = order;
     }
 
-    public Integer getStock_buy() {
-        return stock_buy;
+    public Integer getBuyPieces() {
+        return buyPieces;
     }
 
-    public void setStock_buy(Integer stock_buy) {
-        this.stock_buy = stock_buy;
+    public void setBuyPieces(Integer buyPieces) {
+        this.buyPieces = buyPieces;
     }
 
     public Integer getStock_hire() {

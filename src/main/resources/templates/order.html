@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/lets-party-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/zabuto_calendar.css">
+    <link rel="stylesheet" href="/webjars/font-awesome/css/all.css">
+
+    <title>Let's Party!</title>
+</head>
+<body>
+<div class="container">
+
+    <div th:replace="~{fragments/header}"></div>
+
+    <div class="py-3 text-center"></div>
+    <div class="row">
+        <div class="col-md-8 order-md-1">
+            <h4>Potwierdź zamówienie</h4>
+            <hr/>
+            <form method="POST" th:action="@{'/confirmation'}">
+                <table class="table table-borderless">
+                    <thead class="thead-light">
+                    <tr>
+                        <th colspan="2" scope="col">Produkt</th>
+                        <th scope="col" class="text-right">Cena</th>
+                        <th scope="col" class="text-center">Sztuk</th>
+                        <th scope="col" class="text-right">Koszt [PLN]</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="orderItem : ${order.getOrderItems()}"
+                        th:attr="row-id=${orderItem.getId()}">
+                        <td>
+                            <img th:src="@{'/items/'+${orderItem.getItem().getId()}+'/image'}"
+                                 width="100" height="100">
+                        </td>
+                        <td class="align-middle" th:text="${orderItem.getItem().getName()}">Tutaj będzie nazwa</td>
+                        <td class="text-right align-middle" id="price"
+                            th:text="${#numbers.formatDecimal(orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}"
+                            th:attr="row-id=${orderItem.getId()}">
+                            Tutaj będzie cena jednostkowa
+                        </td>
+
+                        <td class="text-center align-middle" width="20%" id="pieces"
+                            th:attr="name=${'quant['+orderItem.getId()+']'}, row-id=${orderItem.getId()}"
+                            th:text="${orderItem.getBuyPieces()}">
+                        </td>
+                        <td class="text-right align-middle" id="cost"
+                            th:text="${#numbers.formatDecimal(orderItem.getBuyPieces()*orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}"
+                            th:attr="row-id=${orderItem.getId()}">
+                            Tutaj będzie koszt
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <td colspan="3"></td>
+                        <td class="text-right border-top"><b>Razem</b></td>
+                        <td class="text-right border-top" id="total">
+                        </td>
+                    </tr>
+                    <tr class="table-row">
+                        <td colspan="3"></td>
+                        <td class="text-right" colspan="2">
+                            <input type="submit" th:formaction="@{'/basket'}" formmethod="get" class="btn btn-danger" value="Wstecz"/>
+                            <input type="submit" class="btn btn-success" value="Dalej"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="col-md-4 order-md-2 mb-4">
+            <div th:replace="~{fragments/rightsidebar}"></div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer}"></div>
+<script>
+    $(document).ready(function () {
+
+        updateTable();
+
+        function updateTable() {
+            var total = 0;
+            $('tr[row-id]').each(function (i, row) {
+                var $row = $(row);
+                var price = parseFloat($row.find("td[id='price']").html().replace(/\s+/g, ''));
+                var pieces = parseInt($row.find("td[id='pieces']").html());
+                $row.find("td[id='cost']").html(addSpaces((price * pieces).toFixed(2).replace(".", ",")));
+                total = total + price * pieces;
+            });
+            $("#total").html(addSpaces(total.toFixed(2).replace(".", ",")));
+        }
+
+        function addSpaces(nStr) {
+            nStr += '';
+            x = nStr.split(',');
+            x1 = x[0];
+            x2 = x.length > 1 ? ',' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+            }
+            return x1 + x2;
+        }
+    });
+</script>
+</body>
+</html>

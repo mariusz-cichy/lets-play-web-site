@@ -4,14 +4,16 @@ package pl.emcea.letsplaywebsite.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.emcea.letsplaywebsite.exceptions.NotEnoughPiecesException;
 import pl.emcea.letsplaywebsite.models.*;
 import pl.emcea.letsplaywebsite.repositories.*;
 import pl.emcea.letsplaywebsite.services.ImageService;
+import pl.emcea.letsplaywebsite.services.OrderService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -23,19 +25,18 @@ public class WebPartyController {
     OrderRepository orderRepository;
     OrderItemRepository orderItemRepository;
     CustomerRepository customerRepository;
+    OrderService orderService;
 
-    public WebPartyController(PoolRepository poolRepository,
-                              ItemRepository itemRepository,
-                              ImageService imageService,
-                              OrderRepository orderRepository,
-                              OrderItemRepository orderItemRepository,
-                              CustomerRepository customerRepository) {
+    public WebPartyController(PoolRepository poolRepository, ItemRepository itemRepository, ImageService imageService,
+                              OrderRepository orderRepository, OrderItemRepository orderItemRepository,
+                              CustomerRepository customerRepository, OrderService orderService) {
         this.poolRepository = poolRepository;
         this.itemRepository = itemRepository;
         this.imageService = imageService;
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.customerRepository = customerRepository;
+        this.orderService = orderService;
     }
 
     @RequestMapping({"", "/", "/home"})
@@ -70,15 +71,17 @@ public class WebPartyController {
     }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
-    public String itemPage(Model model, @PathVariable String id) {
+    public String itemPage(@ModelAttribute("error") String error, Model model, @PathVariable String id) {
         model.addAttribute("item", itemRepository.findById(Integer.valueOf(id)).get());
+        model.addAttribute("error", error);
         return "item";
     }
 
     @RequestMapping(value = "/item/{id}", method = {RequestMethod.POST})
     public String buyHirePage(@PathVariable String id,
                               @RequestParam(value = "buy_pcs") String buy_pcs,
-                              @RequestParam(value = "hire_pcs", required = false) String hire_pcs) {
+                              Model model,
+                              RedirectAttributes redirectAttributes) {
 
         Customer customer;
         customer = customerRepository.findById(1).get();
@@ -87,7 +90,6 @@ public class WebPartyController {
 
         System.out.println("id: " + id);
         System.out.println("buy_pcs: " + buy_pcs);
-        System.out.println("hire_pcs: " + hire_pcs);
 
         // Check if there is OPEN order for the legged-in Customer
         // If not then create one.
@@ -98,19 +100,53 @@ public class WebPartyController {
             order = new Order(customer, OrderStatus.OPEN, orderItems);
             orderRepository.save(order);
         }
-
-        // Create new OrderItem and add to the Order
         orderItems = order.getOrderItems();
-        OrderItem orderItem;
-        if (hire_pcs == null || hire_pcs.equals("")) {
-            orderItem = new OrderItem(item, order, Integer.valueOf(buy_pcs), 0);
-        } else {
-            orderItem = new OrderItem(item, order, Integer.valueOf(buy_pcs), Integer.valueOf(hire_pcs));
+
+        // Sprawdzenie czy została wpisana liczba całkowita.
+        int buy_pcs_int;
+        try {
+            buy_pcs_int = Integer.valueOf(buy_pcs);
+        } catch (NumberFormatException e) {
+            redirectAttributes.addFlashAttribute("error", "Liczba sztuk musi być liczbą całkowitą nieujemną.");
+            return "redirect:/item/" + id;
         }
-        orderItems.add(orderItem);
-        order.setOrderItems(orderItems);
-        orderItemRepository.save(orderItem);
-        orderRepository.save(order);
+
+        // Sprawdzenie czy liczba jest dodatnia
+        if (buy_pcs_int < 0) {
+            redirectAttributes.addFlashAttribute("error", "Liczba produktów musi być nieujemna.");
+            return "redirect:/item/" + id;
+        }
+
+        // Sprawdzenie czy jest wystarczająca ilość produktów w magazynie
+        // tu nie sprawdzamy, czy wcześiej nie były dodawane już takie produkty
+        // tu sprawdzamy stan magazynowy na poziomie pojedynczego dodania
+        if (buy_pcs_int > item.getStock_buy()) {
+            redirectAttributes.addFlashAttribute("error", "Nie ma tyle produktów w magazynie.");
+            return "redirect:/item/" + id;
+        }
+
+        boolean itemAlreadyInBasket = false;
+        // Sprawdzenie czy takiego produktu nie ma już w koszyku
+        // jeżeli jest to połączenie
+        for (OrderItem oi: orderItems) {
+            if (oi.getItem().getId() == item.getId()) {
+                itemAlreadyInBasket = true;
+                oi.setBuyPieces(oi.getBuyPieces()+buy_pcs_int);
+                orderItemRepository.save(oi);
+                orderRepository.save(order);
+                break;
+            }
+        }
+
+        // Jeżeli nie ma produktu w koszyku to dodanie do koszyka
+        if (itemAlreadyInBasket == false) {
+            OrderItem orderItem;
+            orderItem = new OrderItem(item, order, buy_pcs_int, 0);
+            orderItems.add(orderItem);
+            order.setOrderItems(orderItems);
+            orderItemRepository.save(orderItem);
+            orderRepository.save(order);
+        }
 
         return "redirect:/item/" + id;
     }
@@ -129,6 +165,7 @@ public class WebPartyController {
 
     @GetMapping("/basket")
     public String basketPage(Model model) {
+        // TODO: Zmienić "1" na ID zalogowanego klienta
         Customer customer = customerRepository.findById(1).get();
 
         List<OrderItem> orderItems;
@@ -139,20 +176,30 @@ public class WebPartyController {
             orderRepository.save(order);
         }
 
-        double total=0;
-        for (OrderItem o : order.getOrderItems()) {
-            total = total + o.getStock_buy()*o.getItem().getBuy();
-        }
-
         model.addAttribute("order", order);
-        model.addAttribute("total", total);
-
         return "basket";
     }
 
     @PostMapping("/basket")
-    public String basketSubmitPage(@ModelAttribute Greeting greeting) {
+    public String basketSubmitPage(BasketItems basketItems, Model model) {
+
+        // TODO: Zmienić "1" na ID zalogowanego klienta
+        Customer customer = customerRepository.findById(1).get();
+        Order order = orderRepository.findOrderByCustomerAndStatus(customer, OrderStatus.OPEN);
+        orderService.updateOrder(order, basketItems);
+        model.addAttribute("order", order);
+        try {
+            orderService.submitOrder(order);
+            return "order";
+        } catch (NotEnoughPiecesException e) {
+            e.printStackTrace();
+        }
         return "basket";
+    }
+
+    @PostMapping("/confirmation")
+    public String vote(Model model) {
+        return "confirmation";
     }
 
     @GetMapping("/pools")
@@ -171,11 +218,11 @@ public class WebPartyController {
 
     @GetMapping("/login")
     public String login() {
-        return "/loginPage";
+        return "/login";
     }
 
     @GetMapping("/register")
     public String register() {
-        return "/registerPage";
+        return "/register";
     }
 }
