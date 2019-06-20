@@ -39,7 +39,12 @@
                             <img th:src="@{'/items/'+${orderItem.getItem().getId()}+'/image'}"
                                  width="100" height="100">
                         </td>
-                        <td class="align-middle" th:text="${orderItem.getItem().getName()}">Tutaj będzie nazwa</td>
+                        <td th:if="${errors.containsKey(orderItem.getItem().getId().toString())}" class="align-middle">
+                            <span th:text="${orderItem.getItem().getName()}">Tutaj będzie nazwa</span>
+                            <span style="color:red" th:utext="${'</br><small>Dostępnych jest tylko: '+errors.get(orderItem.getItem().getId().toString())+' szt.</small>'}"></span>
+                        </td>
+                        <td th:unless="${errors.containsKey(orderItem.getItem().getId().toString())}"class="align-middle" th:utext="${orderItem.getItem().getName()}">Tutaj będzie nazwa</td>
+
                         <td class="text-right align-middle" id="price"
                             th:text="${#numbers.formatDecimal(orderItem.getItem().getBuy(),1, 'WHITESPACE',2, 'COMMA')}"
                             th:attr="row-id=${orderItemStat.index}">
@@ -50,7 +55,7 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button type="button" class="btn btn-outline-danger btn-number" data-type="minus"
-                                            th:attr="data-field=${'basketItems['+orderItemStat.index+']'}, row-id=${orderItemStat.index}">
+                                            th:attr="data-field=${'basketItems['+orderItemStat.index+'].pieces'}, row-id=${orderItemStat.index}">
                                         <span class="fa fa-minus text-danger"></span>
                                     </button>
                                 </div>
@@ -60,7 +65,7 @@
                                        class="form-control input-number text-right" value="1" min="0" max="99">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-success btn-number" data-type="plus"
-                                            th:attr="data-field=${'basketItems['+orderItemStat.index+']'}, row-id=${orderItemStat.index}">
+                                            th:attr="data-field=${'basketItems['+orderItemStat.index+'].pieces'}, row-id=${orderItemStat.index}">
                                         <span class="fa fa-plus text-success"></span>
                                     </button>
                                 </div>
@@ -105,12 +110,9 @@
 
             fieldName = $(this).attr('data-field');
             type = $(this).attr('data-type');
-            var input = $("input[name='" + fieldName + ".pieces']");
+            var input = $("input[name='" + fieldName + "']");
             var currentVal = parseInt(input.val());
-            console.log("fieldName: "+fieldName);
-            console.log("type: "+type);
-            console.log("input: "+"input[name='" + fieldName + ".pieces']");
-            console.log("currentVal: "+currentVal);
+
             if (!isNaN(currentVal)) {
                 if (type == 'minus') {
 
@@ -120,7 +122,6 @@
                     if (parseInt(input.val()) == input.attr('min')) {
                         $(this).attr('disabled', true);
                     }
-
                 } else if (type == 'plus') {
 
                     if (currentVal < input.attr('max')) {
@@ -129,7 +130,6 @@
                     if (parseInt(input.val()) == input.attr('max')) {
                         $(this).attr('disabled', true);
                     }
-
                 }
             } else {
                 input.val(0);
@@ -149,6 +149,7 @@
             valueCurrent = parseInt($(this).val());
 
             name = $(this).attr('name');
+
             if (valueCurrent >= minValue) {
                 $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
             } else {
