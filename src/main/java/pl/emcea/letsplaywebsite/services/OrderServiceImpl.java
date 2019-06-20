@@ -42,7 +42,6 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
     }
 
-    @Override
     public Map<String, String> verifyOrder(Order order) {
         HashMap<String, String> errors = new HashMap<>();
         for (OrderItem oi: order.getOrderItems()) {
