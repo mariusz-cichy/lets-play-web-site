@@ -1,7 +1,9 @@
-INSERT INTO customers(id, first_name, last_name, email, status)
-VALUES (1, 'Mariusz', 'Cichy', 'mariusz.cichy@mcpm.pl', 'REGISTERED');
-INSERT INTO customers(id, first_name, last_name, email, status)
-VALUES (2, 'Anna', 'Cichy', 'anna.cichy@mcpm.pl', 'REGISTERED');
+# Password: ABCabc123
+INSERT INTO customers(id, first_name, last_name, email, password, role, status)
+VALUES (1, 'Mariusz', 'Cichy', 'mariusz.cichy@mcpm.pl', '$2a$10$6YgUTaHo4KHdjycA20WSqexeM267ESo6VqBqH9Qcx5GITtcOGV9zS', 'ROLE_USER','REGISTERED');
+# Password: ABCabc123
+INSERT INTO customers(id, first_name, last_name, email, password, role, status)
+VALUES (2, 'Anna', 'Cichy', 'anna.cichy@mcpm.pl', '$2a$10$6YgUTaHo4KHdjycA20WSqexeM267ESo6VqBqH9Qcx5GITtcOGV9zS', 'ROLE_ADMIN', 'REGISTERED');
 
 
 INSERT INTO pools(id, question, start_date, end_date)

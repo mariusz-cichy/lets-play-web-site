@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -17,21 +18,31 @@ import pl.emcea.letsplaywebsite.security.CustomAccessDeniedHandler;
 import pl.emcea.letsplaywebsite.security.CustomAuthenticationFailureHandler;
 import pl.emcea.letsplaywebsite.security.CustomLogoutSuccessHandler;
 
+import javax.annotation.Resource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
-                .and()
-                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
-                .and()
-                .withUser("mcichy").password(passwordEncoder().encode("DupaRomana75")).roles("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
+    @Resource(name = "customerDetailServiceImpl")
+    private UserDetailsService customerDetailedService;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customerDetailedService);
     }
+
+//    @Override
+//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
+//                .and()
+//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("USER")
+//                .and()
+//                .withUser("mcichy").password(passwordEncoder().encode("DupaRomana75")).roles("USER")
+//                .and()
+//                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
+//    }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {

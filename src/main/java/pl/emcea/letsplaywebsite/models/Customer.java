@@ -6,24 +6,33 @@ import javax.validation.constraints.Email;
 @Entity(name="customers")
 public class Customer {
     @Id
+    @Column
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+
+    @Column
     private String firstName;
+    @Column
     private String lastName;
+    @Column
     @Email
     private String email;
+    @Column
     private String password;
+    @Column
+    private String role;
     @Enumerated(EnumType.STRING)
     private CustomerStatus status;
 
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email, String password, CustomerStatus status) {
+    public Customer(String firstName, String lastName, @Email String email, String password, String role, CustomerStatus status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role = role;
         this.status = status;
     }
 
@@ -65,6 +74,14 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public CustomerStatus getStatus() {

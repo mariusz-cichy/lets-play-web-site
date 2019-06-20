@@ -6,4 +6,5 @@ import pl.emcea.letsplaywebsite.models.Customer;
 
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
+    Customer findCustomerByEmail(String email);
 }
