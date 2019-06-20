@@ -3,12 +3,18 @@ pipeline {
   stages {
     stage('Kompilacja') {
       steps {
-        echo 'Jestem tutaj 1'
+        timestamps() {
+          echo 'Start kompilacji'
+        }
+
       }
     }
     stage('Testy jednostkowe') {
       steps {
-        sleep 1
+        timestamps() {
+          sleep 1
+        }
+
       }
     }
     stage('Testy integracyjne') {
