@@ -6,9 +6,9 @@
         <li class="list-inline-item"><a href="#">Wsparcie techniczne</a></li>
     </ul>
     <span sec:authorize="isAuthenticated()">
-    | Logged user: <span sec:authentication="name"></span> |
-    Roles: <span sec:authentication="principal.authorities"></span> |
-    <a th:href="@{/logout}">Sign Out</a>
+    | Zalogowany użytkownik: <span sec:authentication="name"></span> | Przypisane role: <span sec:authorize="hasRole('USER')">Użytkownik</span><span sec:authorize="hasRole('ADMIN')">Administrator</span> |
+        <!--<span sec:authentication="principal.authorities"></span>-->
+    <a th:href="@{/logout}">Wyloguj</a>
     </span>
 
     <script src="/webjars/jquery/jquery.slim.min.js"></script>

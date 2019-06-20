@@ -19,21 +19,98 @@
         <div class="col-6">
             <h4 class="mb-3">Zaloguj się</h4>
             <hr/>
-            <form th:action="@{/login}" method="post">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    Błędna nazwa użytkownika i/lub hasło.
+                </div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">
+                    Użytkownik został wylogowany.
+                </div>
+            </div>
+            <form id="login-form" th:action="@{/login}" method="post">
                 <fieldset>
                     <div class="form-group">
                         <label for="username">Nazwa użytkownika</label>
                         <input type="text" name="username" id="username" class="form-control input-lg"
-                               placeholder="Nazwa użytkownika" required="true"/>
+                               placeholder="Nazwa użytkownika"/>
                     </div>
                     <div class="form-group">
                         <label for="password">Hasło</label>
                         <input type="password" name="password" id="password" class="form-control input-lg"
-                               placeholder="Hasło" required="true"/>
+                               placeholder="Hasło"/>
                     </div>
 
                     <div class="form-group text-right">
                             <input type="submit" class="btn btn-primary" value="Zaloguj"/>
+                    </div>
+                </fieldset>
+            </form>
+
+            <h4 class="mb-3">Załóż konto</h4>
+            <hr/>
+            <form class="needs-validation" novalidate>
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">Imię</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Wpisz imię" value=""
+                                   required>
+                            <div class="invalid-feedback">
+                                Proszę podać poprawne imię.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Nazwisko</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Wpisz nazwisko" value=""
+                                   required>
+                            <div class="invalid-feedback">
+                                Proszę podać poprawne nazwisko.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="imie.nazwisko@przyklad.pl"
+                               required>
+                        <div class="invalid-feedback">
+                            Proszę podać poprawny adres email.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password">Hasło</label>
+                        <input type="password" class="form-control" id="password" placeholder="Wpisz hasło" required>
+                        <div class="invalid-feedback">
+                            Proszę wpisać ponownie to samo hasło.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="repeatedPassword">Powtórzenie hasła</label>
+                        <input type="password" class="form-control" id="repeatedPassword"
+                               placeholder="Wpisz ponownie hasło" required>
+                        <div class="invalid-feedback">
+                            Proszę wpisać ponownie to samo hasło.
+                        </div>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="same-address" required>
+                        <label class="custom-control-label" for="same-address">Zgadzam się i akceptuję warunki
+                            <a href="" data-toggle="modal"
+                               data-target="#exampleModal">Regulaminu</a></label>
+                        <div class="invalid-feedback">
+                            Proszę zaakceptować warunki.
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary" type="submit">Zarejestruj</button>
                     </div>
                 </fieldset>
             </form>
@@ -51,6 +128,11 @@
 <script src="/webjars/jquery/jquery.slim.min.js"></script>
 <script src="/webjars/popper.js/umd/popper.min.js"></script>
 <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-
+<script>
+    $(document).ready(function ($) {
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+    });
+</script>
 </body>
 </html>

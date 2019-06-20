@@ -22,14 +22,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="/pools">Ankiety</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/login">Zaloguj się</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Załóż konto</a>
+            <li class="nav-item" sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                <a class="nav-link" href="/logout">Wyloguj się</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin">Admin</a>
+            <li class="nav-item" sec:authorize="hasRole('USER')">
+                <a class="nav-link" href="/login">Panel Użytkownika</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                <a class="nav-link" href="/admin">Panel Administratora</a>
             </li>
         </ul>
     </div>

@@ -29,30 +29,13 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(Order order, BasketItems basketItems) {
 
         for (OrderItem oi: order.getOrderItems()) {
-            System.out.println(">itemId= " + oi.getItem().getId());
-            System.out.println(">buy= " + oi.getBuyPieces());
             for (BasketItem bi : basketItems.getBasketItems() ) {
                 if (oi.getItem().getId() == Integer.valueOf(bi.getName())) {
-                    System.out.println("  >>name= " + bi.getName());
-                    System.out.println("  >>pieces= " + bi.getPieces());
                     oi.setBuyPieces(Integer.valueOf(bi.getPieces()));
                 }
             }
         }
         orderRepository.save(order);
-    }
-
-    public Map<String, String> verifyOrder(Order order) {
-        HashMap<String, String> errors = new HashMap<>();
-        for (OrderItem oi: order.getOrderItems()) {
-            System.out.println("E: oi.getBuyPieces()="+oi.getBuyPieces());
-            System.out.println("E: itemRepository.findItemById(oi.getItem().getId()).getStock_buy()="+itemRepository.findItemById(oi.getItem().getId()).getStock_buy());
-            if (oi.getBuyPieces() > itemRepository.findItemById(oi.getItem().getId()).getStock_buy()) {
-                errors.put(oi.getItem().getId().toString(),
-                        itemRepository.findItemById(oi.getItem().getId()).getStock_buy().toString());
-            }
-        }
-        return errors;
     }
 
     @Override
@@ -61,9 +44,6 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItem orderItem: order.getOrderItems()) {
             int oiId = orderItem.getItem().getId();
             int oiBuy = orderItem.getBuyPieces();
-            System.out.println("oiId: "+oiId);
-            System.out.println("oiBuy: "+oiBuy);
-            System.out.println("stockBuy: "+itemRepository.findItemById(oiId).getStock_buy());
             if (itemRepository.findItemById(oiId).getStock_buy() >= oiBuy) {
                 itemRepository.findItemById(oiId).setStock_buy(itemRepository.findItemById(oiId).getStock_buy()-oiBuy);
             } else {

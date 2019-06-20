@@ -160,7 +160,7 @@ public class WebPartyController {
 
     @RequestMapping("/about")
     public String aboutPage() {
-        return "aboutPage";
+        return "about";
     }
 
     @GetMapping("/basket")
