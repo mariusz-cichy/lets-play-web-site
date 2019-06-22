@@ -32,9 +32,9 @@
             <form id="login-form" th:action="@{/login}" method="post">
                 <fieldset>
                     <div class="form-group">
-                        <label for="username">Nazwa użytkownika</label>
+                        <label for="username">E-mail</label>
                         <input type="text" name="username" id="username" class="form-control input-lg"
-                               placeholder="Nazwa użytkownika"/>
+                               placeholder="E-mail"/>
                     </div>
                     <div class="form-group">
                         <label for="password">Hasło</label>
@@ -43,19 +43,22 @@
                     </div>
 
                     <div class="form-group text-right">
-                            <input type="submit" class="btn btn-primary" value="Zaloguj"/>
+                        <input type="submit" class="btn btn-primary" value="Zaloguj"/>
                     </div>
                 </fieldset>
             </form>
 
             <h4 class="mb-3">Załóż konto</h4>
             <hr/>
-            <form class="needs-validation" novalidate>
+            <div th:if="${register_ok}" class="alert alert-success" th:utext="${register_ok}"></div>
+            <div th:if="${register_error}" class="alert alert-danger" th:utext="${register_error}"></div>
+            <form id="register-form" th:action="@{/register}" method="post" class="needs-validation" novalidate>
                 <fieldset>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Imię</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Wpisz imię" value=""
+                            <input type="text" class="form-control" id="firstName" name="firstname"
+                                   placeholder="Wpisz imię" value=""
                                    required>
                             <div class="invalid-feedback">
                                 Proszę podać poprawne imię.
@@ -64,7 +67,8 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Nazwisko</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Wpisz nazwisko" value=""
+                            <input type="text" class="form-control" id="lastName" name="lastname"
+                                   placeholder="Wpisz nazwisko" value=""
                                    required>
                             <div class="invalid-feedback">
                                 Proszę podać poprawne nazwisko.
@@ -73,8 +77,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="imie.nazwisko@przyklad.pl"
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="E-mail"
                                required>
                         <div class="invalid-feedback">
                             Proszę podać poprawny adres email.
@@ -83,15 +87,15 @@
 
                     <div class="mb-3">
                         <label for="password">Hasło</label>
-                        <input type="password" class="form-control" id="password" placeholder="Wpisz hasło" required>
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Wpisz hasło" required>
                         <div class="invalid-feedback">
                             Proszę wpisać ponownie to samo hasło.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="repeatedPassword">Powtórzenie hasła</label>
-                        <input type="password" class="form-control" id="repeatedPassword"
+                        <label for="repeatedPass">Powtórzone hasło</label>
+                        <input type="password" class="form-control" id="repeatedPass" name="repeatedPass"
                                placeholder="Wpisz ponownie hasło" required>
                         <div class="invalid-feedback">
                             Proszę wpisać ponownie to samo hasło.
@@ -117,7 +121,6 @@
         </div>
         <div class="col"></div>
     </div>
-
 
 
 </div>

@@ -7,13 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.emcea.letsplaywebsite.models.Customer;
 import pl.emcea.letsplaywebsite.repositories.CustomerRepository;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+@Service
 public class CustomerDetailServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -29,4 +30,5 @@ public class CustomerDetailServiceImpl implements UserDetailsService {
                 Arrays.asList(new SimpleGrantedAuthority(customer.getRole()))
         );
     }
+
 }

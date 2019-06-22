@@ -1,6 +1,7 @@
 package pl.emcea.letsplaywebsite.controllers;
 
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WebPartyController {
@@ -128,10 +130,10 @@ public class WebPartyController {
         boolean itemAlreadyInBasket = false;
         // Sprawdzenie czy takiego produktu nie ma już w koszyku
         // jeżeli jest to połączenie
-        for (OrderItem oi: orderItems) {
+        for (OrderItem oi : orderItems) {
             if (oi.getItem().getId() == item.getId()) {
                 itemAlreadyInBasket = true;
-                oi.setBuyPieces(oi.getBuyPieces()+buy_pcs_int);
+                oi.setBuyPieces(oi.getBuyPieces() + buy_pcs_int);
                 orderItemRepository.save(oi);
                 orderRepository.save(order);
                 break;
@@ -221,8 +223,23 @@ public class WebPartyController {
         return "/login";
     }
 
-    @GetMapping("/register")
-    public String register() {
-        return "/register";
+    @PostMapping("/register")
+    public String register(@RequestParam Map<String, String> p, Model model) {
+        String register_error = "";
+        if (customerRepository.findCustomerByEmail(p.get("email")) != null) {
+            register_error = register_error + "- użytkownik z takim E-mail już istnieje" + "<br/>";
+        }
+        if (!p.get("pass").equals(p.get("repeatedPass"))) {
+            register_error = register_error + "- powtórzone hasło musi być takie samo jak Hasło" + "<br/>";
+        }
+        if (register_error.equals("")) {
+            String encodedPassword = new BCryptPasswordEncoder().encode(p.get("pass"));
+            Customer customer = new Customer(p.get("firstname"), p.get("lastname"), p.get("email"), encodedPassword, "ROLE_USER", CustomerStatus.REGISTERED);
+            customerRepository.save(customer);
+        } else {
+            register_error = "Użytkownik NIE został zarejestrowany:<br/>" + register_error;
+            model.addAttribute("register_error", register_error);
+        }
+        return "login";
     }
 }
