@@ -28,12 +28,12 @@
             <li class="nav-item" sec:authorize="hasAnyRole('USER', 'ADMIN')">
                 <a class="nav-link" href="/logout">Wyloguj się</a>
             </li>
-            <li class="nav-item" sec:authorize="hasRole('USER')">
-                <a class="nav-link" href="/login">Panel Użytkownika</a>
-            </li>
-            <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                <a class="nav-link" href="/admin">Panel Administratora</a>
-            </li>
+            <!--<li class="nav-item" sec:authorize="hasRole('USER')">-->
+                <!--<a class="nav-link" href="/login">Panel Użytkownika</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item" sec:authorize="hasRole('ADMIN')">-->
+                <!--<a class="nav-link" href="/admin">Panel Administratora</a>-->
+            <!--</li>-->
         </ul>
     </div>
 </nav>

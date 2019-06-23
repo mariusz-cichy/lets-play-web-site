@@ -1,6 +1,9 @@
 package pl.emcea.letsplaywebsite.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +47,15 @@ public class WebPartyController {
     @RequestMapping({"", "/", "/home"})
     public String homePage(Model model) {
         model.addAttribute("pool", poolRepository.findByEndDateIsNull());
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username="";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        System.out.println("Username=["+username+"]");
         return "homePage";
     }
 
