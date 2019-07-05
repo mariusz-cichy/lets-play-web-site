@@ -44,18 +44,20 @@ public class WebPartyController {
         this.orderService = orderService;
     }
 
-    @RequestMapping({"", "/", "/home"})
-    public String homePage(Model model) {
-        model.addAttribute("pool", poolRepository.findByEndDateIsNull());
-
+    private String getSessionUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username="";
+        String username = "";
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         } else {
             username = principal.toString();
         }
-        System.out.println("Username=["+username+"]");
+        return username;
+    }
+
+    @RequestMapping({"", "/", "/home"})
+    public String homePage(Model model) {
+        model.addAttribute("pool", poolRepository.findByEndDateIsNull());
         return "homePage";
     }
 
@@ -98,7 +100,7 @@ public class WebPartyController {
                               RedirectAttributes redirectAttributes) {
 
         Customer customer;
-        customer = customerRepository.findById(1).get();
+        customer = customerRepository.findCustomerByEmail(getSessionUsername());
         Item item;
         item = itemRepository.findById(Integer.valueOf(id)).get();
 
@@ -179,41 +181,46 @@ public class WebPartyController {
 
     @GetMapping("/basket")
     public String basketPage(Model model) {
-        // TODO: Zmienić "1" na ID zalogowanego klienta
-        Customer customer = customerRepository.findById(1).get();
-
+        Customer customer = customerRepository.findCustomerByEmail(getSessionUsername());
+        System.out.println(customer.toString());
         List<OrderItem> orderItems;
         Order order = orderRepository.findOrderByCustomerAndStatus(customer, OrderStatus.OPEN);
         if (order == null) {
             orderItems = new ArrayList<>();
             order = new Order(customer, OrderStatus.OPEN, orderItems);
             orderRepository.save(order);
-        }
+        } else {
 
+        }
+        System.out.println(order.toString());
         model.addAttribute("order", order);
         return "basket";
     }
 
     @PostMapping("/basket")
     public String basketSubmitPage(BasketItems basketItems, Model model) {
-
-        // TODO: Zmienić "1" na ID zalogowanego klienta
-        Customer customer = customerRepository.findById(1).get();
+        Customer customer = customerRepository.findCustomerByEmail(getSessionUsername());
+        System.out.println(">"+customer.toString());
         Order order = orderRepository.findOrderByCustomerAndStatus(customer, OrderStatus.OPEN);
+        System.out.println(">"+order.toString());
         orderService.updateOrder(order, basketItems);
         model.addAttribute("order", order);
-        try {
-            orderService.submitOrder(order);
-            return "order";
-        } catch (NotEnoughPiecesException e) {
-            e.printStackTrace();
-        }
-        return "basket";
+        return "order";
     }
 
     @PostMapping("/confirmation")
-    public String vote(Model model) {
-        return "confirmation";
+    public String confirmation(Model model) {
+        Customer customer = customerRepository.findCustomerByEmail(getSessionUsername());
+        System.out.println(" >> "+customer.toString());
+        Order order = orderRepository.findOrderByCustomerAndStatus(customer, OrderStatus.OPEN);
+        System.out.println(" >> "+order.toString());
+        try {
+            orderService.submitOrder(order);
+            return "confirmation";
+        } catch (NotEnoughPiecesException e) {
+            e.printStackTrace();
+        }
+        return "order";
     }
 
     @GetMapping("/pools")

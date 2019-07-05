@@ -91,4 +91,17 @@ public class Customer {
     public void setStatus(CustomerStatus status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

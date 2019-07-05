@@ -1,4 +1,7 @@
-Feature: the health can be retrieved
-  Scenario: client makes call to GET /health
-    When the client calls /health
-    Then the client receives response status code of 200
+# language: pl
+Potrzeba biznesowa: Logowanie do witryny
+  Scenariusz: Logowanie poprawnym emailem i hasłem
+    Zakładając, że użytkownik ma otwartą przeglądarkę
+    I wszedł na witrynę internetową
+    Jeżeli zaloguje się na przy pomocy poprawnego loginu i hasła
+    Wtedy będzie mógł zrobić zakupy
